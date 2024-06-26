@@ -1,0 +1,40 @@
+import React from "react";
+import { Card, CardContent } from "@/components/ui/card";
+import {
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+  CarouselNext,
+  CarouselPrevious,
+} from "@/components/ui/carousel";
+import CardItem from "./CardItem";
+const Slider = () => {
+  return (
+    <div className="flex items-center justify-center p-10">
+      <Carousel
+        opts={{
+          align: "start",
+        }}
+        className="w-[70vw] md:w-[90vw]"
+      >
+        <CarouselContent>
+          {Array.from({ length: 5 }).map((_, index) => (
+            <CarouselItem key={index} className="md:basis-1/2 lg:basis-1/3">
+              <div className="px-10">
+                {/* <Card> */}
+                <CardContent className="flex items-center justify-center">
+                  <CardItem />
+                </CardContent>
+                {/* </Card> */}
+              </div>
+            </CarouselItem>
+          ))}
+        </CarouselContent>
+        <CarouselPrevious />
+        <CarouselNext />
+      </Carousel>
+    </div>
+  );
+};
+
+export default Slider;
