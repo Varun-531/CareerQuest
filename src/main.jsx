@@ -8,6 +8,7 @@ import { ClerkProvider } from "@clerk/clerk-react";
 import Dashboard from "./pages/Dashboard.jsx";
 import { SignedIn } from "@clerk/clerk-react";
 import { Toaster } from "@/components/ui/sonner";
+import AddInternship from "./pages/AddInternship.jsx";
 
 const PUBLISHABLE_KEY = import.meta.env.VITE_CLERK_PUBLISHABLE_KEY;
 
@@ -27,6 +28,14 @@ const router = createBrowserRouter([
       {
         path: "/dashboard",
         element: <Dashboard />,
+      },
+      {
+        path: "/add-Internship",
+        element: (
+          <SignedIn>
+            <AddInternship />
+          </SignedIn>
+        ),
       },
     ],
   },

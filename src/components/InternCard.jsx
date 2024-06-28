@@ -15,7 +15,7 @@ import { Button } from "./ui/button";
 const InternCard = ({ type }) => {
   return (
     <div>
-      <Card className="md:w-[30vw] lg:w-[20vw] w-[70vw] h-fit">
+      <Card className="md:w-[30vw] lg:w-[20vw] w-[70vw] h-fit group hover:scale-105 mt-10">
         <CardHeader>
           <CardTitle>MERN Stack Developer</CardTitle>
           <CardDescription>Unlock the potential within you</CardDescription>
@@ -32,7 +32,7 @@ const InternCard = ({ type }) => {
           <img
             src="https://images.unsplash.com/photo-1580894732444-8ecded7900cd?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MzJ8fGpvYnN8ZW58MHx8MHx8fDA%3D"
             alt=""
-            className="w-[50px] h-[50px] rounded"
+            className="w-[50px] h-[50px] rounded group-hover:scale-105 object-cover"
           />
         </CardContent>
         <Separator className="my-3" />

@@ -25,7 +25,7 @@ const InternSlider = ({ type }) => {
               key={index}
               className="md:basis-1/3 lg:basis-1/4 basis:1/2"
             >
-              <div className="px-10">
+              <div className="">
                 <CardContent className="flex items-center justify-center">
                   <InternCard type={type} />
                 </CardContent>

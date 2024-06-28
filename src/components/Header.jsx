@@ -27,28 +27,12 @@ import {
   NavigationMenuTrigger,
   NavigationMenuViewport,
 } from "@/components/ui/navigation-menu";
-
+import { useNavigate } from "react-router-dom";
 import { toast } from "sonner";
 import { ChevronDownIcon } from "@radix-ui/react-icons";
 
 const Header = () => {
-  // const [isAdmin, setIsAdmin] = useState(false);
-  // const { isSignedIn, user, isLoaded } = useUser();
-
-  // useEffect(() => {
-  //   if (isSignedIn && isLoaded) {
-  //     toast(`Welcome to CareerQuest, ${user.username}`, {
-  //       action: { label: "Undo" },
-  //     });
-  //   }
-  // }, [isSignedIn, isLoaded, user]);
-  // useEffect(() => {
-  //   console.log("user", user?.publicMetadata);
-  //   if (isLoaded && user?.publicMetadata?.role === "admin") {
-  //     setIsAdmin(true);
-  //   }
-  //   console.log("isAdmin", isAdmin);
-  // }, [user]);
+  const navigate = useNavigate();
   const [isAdmin, setIsAdmin] = useState(false);
   const { isSignedIn, user, isLoaded } = useUser();
 
@@ -85,48 +69,22 @@ const Header = () => {
           <h2 className="hidden md:block cursor-pointer">Internships</h2>
           <h2 className="hidden md:block cursor-pointer">Jobs</h2>
           <h2 className="hidden md:block cursor-pointer">Courses</h2>
-          {/* {isAdmin && (
-            <NavigationMenu>
-              <NavigationMenuList>
-                <NavigationMenuItem>
-                  <NavigationMenuTrigger>Add</NavigationMenuTrigger>
-                  <NavigationMenuContent className="flex flex-col gap-4 justify-center p-2 w-fit">
-                    <NavigationMenuLink
-                      // className={navigationMenuTriggerStyle()}
-                      className="flex justify-center hover:bg-slate-100 p-2 rounded"
-                    >
-                      Internship opening
-                    </NavigationMenuLink>
-                    <NavigationMenuLink
-                      // className={navigationMenuTriggerStyle()}
-                      className="flex justify-center hover:bg-slate-100 p-2 rounded"
-                    >
-                      Job opening
-                    </NavigationMenuLink>
-                    <NavigationMenuLink
-                      // className={navigationMenuTriggerStyle()}
-                      className="flex justify-center hover:bg-slate-100 p-2 rounded"
-                    >
-                      Course
-                    </NavigationMenuLink>
-                  </NavigationMenuContent>
-                </NavigationMenuItem>
-              </NavigationMenuList>
-            </NavigationMenu>
-          )} */}
           {isAdmin && (
             <NavigationMenu className="hidden md:block">
               <NavigationMenuList>
                 <NavigationMenuItem>
                   <NavigationMenuTrigger>Add</NavigationMenuTrigger>
                   <NavigationMenuContent className="flex flex-col p-3 bg-white rounded-md shadow-md">
-                    <NavigationMenuLink className="text-center text-sm hover:bg-slate-200 rounded-lg p-2">
+                    <NavigationMenuLink
+                      className="text-center text-sm hover:bg-slate-200 rounded-lg p-2 cursor-pointer"
+                      onClick={() => navigate("/add-Internship")}
+                    >
                       Internship opening
                     </NavigationMenuLink>
-                    <NavigationMenuLink className="text-center text-sm hover:bg-slate-200 rounded-lg p-2">
+                    <NavigationMenuLink className="text-center text-sm hover:bg-slate-200 rounded-lg p-2 cursor-pointer">
                       Job opening
                     </NavigationMenuLink>
-                    <NavigationMenuLink className="text-center text-sm hover:bg-slate-200 rounded-lg p-2">
+                    <NavigationMenuLink className="text-center text-sm hover:bg-slate-200 rounded-lg p-2 cursor-pointer">
                       Course
                     </NavigationMenuLink>
                   </NavigationMenuContent>
@@ -136,22 +94,45 @@ const Header = () => {
           )}
         </div>
         <div className="md:hidden">
-          <DropdownMenu>
-            <DropdownMenuTrigger className="font-bold text-lg">
-              <h3 className="flex gap-1 items-center p-0 m-0">
-                Filter
-                <ChevronDownIcon />
-              </h3>
-            </DropdownMenuTrigger>
-            <DropdownMenuContent>
-              <DropdownMenuItem>Internship</DropdownMenuItem>
-              <DropdownMenuItem>Jobs</DropdownMenuItem>
-              <DropdownMenuItem>Courses</DropdownMenuItem>
-              {isAdmin && <DropdownMenuItem>Add</DropdownMenuItem>}
-            </DropdownMenuContent>
-          </DropdownMenu>
+          <NavigationMenu className="md:hidden">
+            <NavigationMenuList>
+              <NavigationMenuItem>
+                <NavigationMenuTrigger>Apply for</NavigationMenuTrigger>
+                <NavigationMenuContent className="flex flex-col p-3 bg-white rounded-md shadow-md">
+                  <NavigationMenuLink className="text-center text-sm hover:bg-slate-200 rounded-lg p-2">
+                    Internships
+                  </NavigationMenuLink>
+                  <NavigationMenuLink className="text-center text-sm hover:bg-slate-200 rounded-lg p-2">
+                    Jobs
+                  </NavigationMenuLink>
+                  <NavigationMenuLink className="text-center text-sm hover:bg-slate-200 rounded-lg p-2">
+                    Courses
+                  </NavigationMenuLink>
+                </NavigationMenuContent>
+              </NavigationMenuItem>
+            </NavigationMenuList>
+          </NavigationMenu>
         </div>
-
+        {isAdmin && (
+          <NavigationMenu className="md:hidden">
+            <NavigationMenuList>
+              <NavigationMenuItem>
+                <NavigationMenuTrigger>Add</NavigationMenuTrigger>
+                <NavigationMenuContent className="flex flex-col p-3 bg-white rounded-md shadow-md">
+                  <NavigationMenuLink className="text-center text-sm hover:bg-slate-200 rounded-lg p-2 cursor-pointer">
+                    Internship opening
+                  </NavigationMenuLink>
+                  <NavigationMenuLink className="text-center text-sm hover:bg-slate-200 rounded-lg p-2 cursor-pointer">
+                    Job opening
+                  </NavigationMenuLink>
+                  <NavigationMenuLink className="text-center text-sm hover:bg-slate-200 rounded-lg p-2 cursor-pointer">
+                    Course
+                  </NavigationMenuLink>
+                </NavigationMenuContent>
+              </NavigationMenuItem>
+            </NavigationMenuList>
+          </NavigationMenu>
+        )}
         {isLoaded ? (
           <>
             <div className="hidden md:block space-x-2">
