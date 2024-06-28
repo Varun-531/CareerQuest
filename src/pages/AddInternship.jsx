@@ -69,8 +69,8 @@ const AddInternship = () => {
 
   return (
     <>
-      <div className="flex p-5 justify-between relative">
-        <div className="w-[60vw] rounded">
+      <div className="md:flex md:p-5 md:justify-between md:relative">
+        <div className="md:w-[60vw] rounded">
           <h1 className="text-2xl md:text-4xl font-semibold">
             New Internship Listing
           </h1>
@@ -229,20 +229,19 @@ const AddInternship = () => {
                 id="aboutCompany"
                 value={aboutCompany}
                 onChange={(e) => setAboutCompany(e.target.value)}
+                className="min-h-40"
               />
             </div>
-            <div className="mt-5">
-              <Button type="submit" className="py-2 px-4 rounded">
-                Submit
-              </Button>
+            <div className="flex justify-end mt-5">
+              <Button type="submit">Submit</Button>
             </div>
           </form>
         </div>
-        <div className="flex items-center justify-center h-full">
+        <div className="md:w-[30vw] md:sticky md:top-10 mt-5 md:mt-0 bg-slate-50 h-[40vh] rounded">
           <img
             src="/img_temp.jpg"
             alt=""
-            className="w-[30vw] h-[85vh] rounded object-cover absolute right-3 top-4"
+            className="w-[30vw] h-[85vh] rounded object-cover sticky top-0"
           />
         </div>
       </div>
