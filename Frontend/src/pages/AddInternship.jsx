@@ -68,15 +68,15 @@ const AddInternship = () => {
   };
 
   return (
-    <div className="px-10">
+    <div className="px-5 md:px-10 md:py-0 py-5">
       <div className="md:flex md:p-5 md:justify-between md:relative">
         <div className="md:w-[60vw] rounded">
           <h1 className="text-2xl md:text-4xl font-semibold">
             New Internship Listing
           </h1>
           <form onSubmit={handleSubmit}>
-            <div className="py-2 flex gap-10 pt-4">
-              <div className="grid max-w-sm items-center gap-1.5 w-[17vw]">
+            <div className="py-2 flex flex-col md:flex-row md:flex gap-5 md:gap-10 pt-4">
+              <div className="grid max-w-sm items-center gap-1.5  md:w-[17vw]">
                 <Label htmlFor="Internship">Title</Label>
                 <Input
                   type="text"
@@ -86,7 +86,7 @@ const AddInternship = () => {
                   onChange={(e) => setTitle(e.target.value)}
                 />
               </div>
-              <div className="grid max-w-sm items-center gap-1.5 w-[17vw]">
+              <div className="grid max-w-sm items-center gap-1.5 md:w-[17vw]">
                 <Label htmlFor="CompanyName">Company Name</Label>
                 <Input
                   type="text"
@@ -96,7 +96,7 @@ const AddInternship = () => {
                   onChange={(e) => setCompanyName(e.target.value)}
                 />
               </div>
-              <div className="grid max-w-sm items-center gap-1.5 relative w-[17vw]">
+              <div className="grid max-w-sm items-center gap-1.5 relative md:w-[17vw]">
                 <Label htmlFor="Location">Location</Label>
                 <Input
                   type="text"
@@ -109,15 +109,15 @@ const AddInternship = () => {
                 <MapPin size={20} className="absolute left-2 top-7 text-xs " />
               </div>
             </div>
-            <div className="py-2 flex gap-10">
-              <div className="grid max-w-sm items-center gap-1.5 w-[17vw]">
+            <div className="py-2 flex md:flex-row flex-col gap-5 md:gap-10">
+              <div className="grid max-w-sm items-center gap-1.5 md:w-[17vw]">
                 <Label htmlFor="start-date">Start date</Label>
                 <Popover>
                   <PopoverTrigger asChild>
                     <Button
                       variant={"outline"}
                       className={cn(
-                        "justify-start text-left font-normal w-[17vw]",
+                        "justify-start text-left font-normal md:w-[17vw]",
                         !date && "text-muted-foreground"
                       )}
                     >
@@ -135,7 +135,7 @@ const AddInternship = () => {
                   </PopoverContent>
                 </Popover>
               </div>
-              <div className="grid max-w-sm items-center gap-1.5 w-[17vw]">
+              <div className="grid max-w-sm items-center gap-1.5 md:w-[17vw]">
                 <Label htmlFor="CompanyLogo">Company Logo</Label>
                 <Input
                   type="file"
@@ -145,7 +145,7 @@ const AddInternship = () => {
                   }
                 />
               </div>
-              <div className="grid max-w-sm items-center gap-1.5 relative w-[17vw]">
+              <div className="grid max-w-sm items-center gap-1.5 relative md:w-[17vw]">
                 <Label htmlFor="Stipend">Stipend</Label>
                 <Input
                   type="number"
@@ -161,18 +161,18 @@ const AddInternship = () => {
                 />
               </div>
             </div>
-            <div className="py-2 flex gap-10">
-              <div className="grid max-w-sm items-center gap-1.5 w-[17vw]">
+            <div className="py-2 flex md:flex-row flex-col gap-5 md:gap-10">
+              <div className="grid max-w-sm items-center gap-1.5 md:w-[17vw]">
                 <Label htmlFor="Openings">No of Openings</Label>
                 <Input
                   type="number"
                   id="Openings"
-                  placeholder="10"
+                  placeholder="eg., 10"
                   value={openings}
                   onChange={(e) => setOpenings(e.target.value)}
                 />
               </div>
-              <div className="grid max-w-sm items-center gap-1.5 w-[17vw]">
+              <div className="grid max-w-sm items-center gap-1.5 md:w-[17vw]">
                 <Label htmlFor="Duration">Duration</Label>
                 <Input
                   type="number"
@@ -182,14 +182,14 @@ const AddInternship = () => {
                   onChange={(e) => setDuration(e.target.value)}
                 />
               </div>
-              <div className="grid max-w-sm items-center gap-1.5 relative w-[17vw]">
+              <div className="grid max-w-sm items-center gap-1.5 relative md:w-[17vw]">
                 <Label htmlFor="ApplyBy">Apply by</Label>
                 <Popover>
                   <PopoverTrigger asChild>
                     <Button
                       variant={"outline"}
                       className={cn(
-                        "justify-start text-left font-normal w-[17vw]",
+                        "justify-start text-left font-normal md:w-[17vw]",
                         !applyBy && "text-muted-foreground"
                       )}
                     >
@@ -214,9 +214,9 @@ const AddInternship = () => {
             </div>
             <div className="">
               <div className="">
-                <Label htmlFor="aboutInternship">About Internship</Label>
+                <Label htmlFor="aboutInternship pb-3">About Internship</Label>
                 <ReactQuill
-                  className="w-full rounded pr-5"
+                  className="w-full rounded md:pr-5"
                   value={aboutInternship}
                   onChange={setAboutInternship}
                 />
@@ -229,15 +229,15 @@ const AddInternship = () => {
                 id="aboutCompany"
                 value={aboutCompany}
                 onChange={(e) => setAboutCompany(e.target.value)}
-                className="min-h-40 w-[58vw]"
+                className="min-h-40 md:w-[58vw]"
               />
             </div>
-            <div className="flex justify-end mt-5">
-              <Button type="submit">Submit</Button>
+            <div className="flex md:justify-end justify-center mr-5 mt-5">
+              <Button type="submit sm:w-full">Submit</Button>
             </div>
           </form>
         </div>
-        <div className="md:w-[30vw] md:sticky md:top-10 mt-5 md:mt-0 bg-slate-50 h-[40vh] rounded">
+        <div className="hidden md:block md:w-[30vw] md:sticky md:top-10 mt-5 md:mt-0 bg-slate-50 h-[40vh] rounded">
           <img
             src="/img_temp.jpg"
             alt=""
