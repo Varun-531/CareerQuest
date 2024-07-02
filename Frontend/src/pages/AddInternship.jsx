@@ -68,7 +68,7 @@ const AddInternship = () => {
   };
 
   return (
-    <>
+    <div className="px-10">
       <div className="md:flex md:p-5 md:justify-between md:relative">
         <div className="md:w-[60vw] rounded">
           <h1 className="text-2xl md:text-4xl font-semibold">
@@ -76,7 +76,7 @@ const AddInternship = () => {
           </h1>
           <form onSubmit={handleSubmit}>
             <div className="py-2 flex gap-10 pt-4">
-              <div className="grid max-w-sm items-center gap-1.5 w-[20vw]">
+              <div className="grid max-w-sm items-center gap-1.5 w-[17vw]">
                 <Label htmlFor="Internship">Title</Label>
                 <Input
                   type="text"
@@ -86,7 +86,7 @@ const AddInternship = () => {
                   onChange={(e) => setTitle(e.target.value)}
                 />
               </div>
-              <div className="grid max-w-sm items-center gap-1.5 w-[20vw]">
+              <div className="grid max-w-sm items-center gap-1.5 w-[17vw]">
                 <Label htmlFor="CompanyName">Company Name</Label>
                 <Input
                   type="text"
@@ -96,7 +96,7 @@ const AddInternship = () => {
                   onChange={(e) => setCompanyName(e.target.value)}
                 />
               </div>
-              <div className="grid max-w-sm items-center gap-1.5 relative w-[20vw]">
+              <div className="grid max-w-sm items-center gap-1.5 relative w-[17vw]">
                 <Label htmlFor="Location">Location</Label>
                 <Input
                   type="text"
@@ -110,14 +110,14 @@ const AddInternship = () => {
               </div>
             </div>
             <div className="py-2 flex gap-10">
-              <div className="grid max-w-sm items-center gap-1.5 w-[20vw]">
+              <div className="grid max-w-sm items-center gap-1.5 w-[17vw]">
                 <Label htmlFor="start-date">Start date</Label>
                 <Popover>
                   <PopoverTrigger asChild>
                     <Button
                       variant={"outline"}
                       className={cn(
-                        "justify-start text-left font-normal w-[18vw]",
+                        "justify-start text-left font-normal w-[17vw]",
                         !date && "text-muted-foreground"
                       )}
                     >
@@ -135,7 +135,7 @@ const AddInternship = () => {
                   </PopoverContent>
                 </Popover>
               </div>
-              <div className="grid max-w-sm items-center gap-1.5 w-[20vw]">
+              <div className="grid max-w-sm items-center gap-1.5 w-[17vw]">
                 <Label htmlFor="CompanyLogo">Company Logo</Label>
                 <Input
                   type="file"
@@ -145,7 +145,7 @@ const AddInternship = () => {
                   }
                 />
               </div>
-              <div className="grid max-w-sm items-center gap-1.5 relative w-[20vw]">
+              <div className="grid max-w-sm items-center gap-1.5 relative w-[17vw]">
                 <Label htmlFor="Stipend">Stipend</Label>
                 <Input
                   type="number"
@@ -162,7 +162,7 @@ const AddInternship = () => {
               </div>
             </div>
             <div className="py-2 flex gap-10">
-              <div className="grid max-w-sm items-center gap-1.5 w-[20vw]">
+              <div className="grid max-w-sm items-center gap-1.5 w-[17vw]">
                 <Label htmlFor="Openings">No of Openings</Label>
                 <Input
                   type="number"
@@ -172,7 +172,7 @@ const AddInternship = () => {
                   onChange={(e) => setOpenings(e.target.value)}
                 />
               </div>
-              <div className="grid max-w-sm items-center gap-1.5 w-[20vw]">
+              <div className="grid max-w-sm items-center gap-1.5 w-[17vw]">
                 <Label htmlFor="Duration">Duration</Label>
                 <Input
                   type="number"
@@ -182,14 +182,14 @@ const AddInternship = () => {
                   onChange={(e) => setDuration(e.target.value)}
                 />
               </div>
-              <div className="grid max-w-sm items-center gap-1.5 relative w-[20vw]">
+              <div className="grid max-w-sm items-center gap-1.5 relative w-[17vw]">
                 <Label htmlFor="ApplyBy">Apply by</Label>
                 <Popover>
                   <PopoverTrigger asChild>
                     <Button
                       variant={"outline"}
                       className={cn(
-                        "justify-start text-left font-normal w-[18vw]",
+                        "justify-start text-left font-normal w-[17vw]",
                         !applyBy && "text-muted-foreground"
                       )}
                     >
@@ -216,7 +216,7 @@ const AddInternship = () => {
               <div className="">
                 <Label htmlFor="aboutInternship">About Internship</Label>
                 <ReactQuill
-                  className="w-full rounded"
+                  className="w-full rounded pr-5"
                   value={aboutInternship}
                   onChange={setAboutInternship}
                 />
@@ -229,7 +229,7 @@ const AddInternship = () => {
                 id="aboutCompany"
                 value={aboutCompany}
                 onChange={(e) => setAboutCompany(e.target.value)}
-                className="min-h-40"
+                className="min-h-40 w-[58vw]"
               />
             </div>
             <div className="flex justify-end mt-5">
@@ -245,7 +245,7 @@ const AddInternship = () => {
           />
         </div>
       </div>
-    </>
+    </div>
   );
 };
 
