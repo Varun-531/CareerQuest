@@ -12,6 +12,12 @@ import {
   NavigationMenuViewport,
 } from "@/components/ui/navigation-menu";
 import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "@/components/ui/popover";
+
+import {
   SignInButton,
   SignedIn,
   SignedOut,
@@ -29,6 +35,7 @@ import { useNavigate } from "react-router-dom";
 import { toast } from "sonner";
 import ModeToggle from "./ModeProvider"; // Adjust the path as per your project structure
 import { ChevronDownIcon } from "@radix-ui/react-icons";
+import { Ellipsis } from "lucide-react";
 
 const Header = () => {
   const navigate = useNavigate();
@@ -59,7 +66,10 @@ const Header = () => {
     <div className="bg-slate-200 shadow-sm dark:bg-slate-800">
       <div className="md:p-3 md:px-10 flex justify-between items-center p-3">
         <div className=" md:flex gap-7 font-semibold items-center text-base">
-          <div className="flex gap-1 items-center">
+          <div
+            className="flex gap-1 items-center cursor-pointer"
+            onClick={() => navigate("/dashboard")}
+          >
             <img src="/logo.png" alt="logo" className="md:h-10 h-10" />
             <h2 className="hidden md:font-bold md:text-xl md:block">
               CareerQuest
@@ -76,12 +86,15 @@ const Header = () => {
                   <NavigationMenuTrigger>Add</NavigationMenuTrigger>
                   <NavigationMenuContent className="flex flex-col p-3 bg-white dark:bg-slate-500 rounded-md shadow-md">
                     <NavigationMenuLink
-                      className="text-center text-sm hover:bg-slate-200 dark:hover:bg-slate-600 rounded-lg p-2 cursor-pointer"
+                      className="text-center text-sm hover:bg-slate-200 w-[12vw] dark:hover:bg-slate-600 rounded-lg p-2 cursor-pointer"
                       onClick={() => navigate("/add-Internship")}
                     >
                       Internship opening
                     </NavigationMenuLink>
-                    <NavigationMenuLink className="text-center text-sm dark:hover:bg-slate-600 hover:bg-slate-200 rounded-lg p-2 cursor-pointer">
+                    <NavigationMenuLink
+                      onClick={() => navigate("/add-job")}
+                      className="text-center text-sm dark:hover:bg-slate-600 hover:bg-slate-200 rounded-lg p-2 cursor-pointer"
+                    >
                       Job opening
                     </NavigationMenuLink>
                     <NavigationMenuLink className="text-center text-sm dark:hover:bg-slate-600 hover:bg-slate-200 rounded-lg p-2 cursor-pointer">
@@ -97,7 +110,9 @@ const Header = () => {
           <NavigationMenu className="md:hidden ">
             <NavigationMenuList>
               <NavigationMenuItem>
-                <NavigationMenuTrigger>Apply for</NavigationMenuTrigger>
+                <NavigationMenuTrigger>
+                  <Ellipsis />
+                </NavigationMenuTrigger>
                 <NavigationMenuContent className="flex flex-col p-3 bg-white rounded-md dark:bg-slate-700 shadow-md">
                   <NavigationMenuLink className="text-center text-sm hover:bg-slate-200 dark:hover:bg-slate-600 rounded-lg p-2">
                     Internships
@@ -119,10 +134,16 @@ const Header = () => {
               <NavigationMenuItem>
                 <NavigationMenuTrigger>Add</NavigationMenuTrigger>
                 <NavigationMenuContent className="flex flex-col p-3 bg-white rounded-md dark:bg-slate-700 shadow-md">
-                  <NavigationMenuLink className="text-center text-sm hover:bg-slate-200 dark:hover:bg-slate-600 rounded-lg p-2 cursor-pointer">
+                  <NavigationMenuLink
+                    onClick={() => navigate("/add-Internship")}
+                    className="text-center text-sm hover:bg-slate-200 dark:hover:bg-slate-600 rounded-lg p-2 cursor-pointer"
+                  >
                     Internship opening
                   </NavigationMenuLink>
-                  <NavigationMenuLink className="text-center text-sm hover:bg-slate-200 dark:hover:bg-slate-600 rounded-lg p-2 cursor-pointer">
+                  <NavigationMenuLink
+                    onClick={() => navigate("/add-job")}
+                    className="text-center text-sm hover:bg-slate-200 dark:hover:bg-slate-600 rounded-lg p-2 cursor-pointer"
+                  >
                     Job opening
                   </NavigationMenuLink>
                   <NavigationMenuLink className="text-center text-sm hover:bg-slate-200 dark:hover:bg-slate-600 rounded-lg p-2 cursor-pointer">
@@ -141,6 +162,7 @@ const Header = () => {
         {isLoaded ? (
           <>
             <div className="hidden md:flex space-x-4 items-center">
+              <ModeToggle />
               {isSignedIn ? (
                 <SignedIn>
                   <UserButton />
@@ -155,7 +177,6 @@ const Header = () => {
                   <Button>Employer Sign-up</Button>
                 </>
               )}
-              <ModeToggle />
             </div>
           </>
         ) : (

@@ -4,7 +4,6 @@ import { useNavigate } from "react-router-dom";
 import { toast } from "sonner";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { useCookies } from "react-cookie";
 import { format } from "date-fns";
 import { BanknoteIcon, CalendarIcon, MapPin } from "lucide-react";
 import {
@@ -21,13 +20,12 @@ import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css"; // Import the styles
 import { HashLoader } from "react-spinners";
 
-const AddInternship = () => {
-  const [cookies, setCookie, removeCookie] = useCookies(["jwt"]);
+const AddJob = () => {
   const navigate = useNavigate();
   const { isSignedIn, user, isLoaded } = useUser();
+
   useEffect(() => {
     if (isSignedIn && isLoaded) {
-      // console.log("token", cookies.jwt);
       console.log(user?.publicMetadata?.role);
     }
     if (user?.publicMetadata?.role !== "admin") {
@@ -39,10 +37,9 @@ const AddInternship = () => {
   const [title, setTitle] = useState("");
   const [companyName, setCompanyName] = useState("");
   const [location, setLocation] = useState("");
-  const [stipend, setStipend] = useState("");
+  const [salary, setSalary] = useState("");
   const [openings, setOpenings] = useState("");
   const [companyLogo, setCompanyLogo] = useState(null);
-  const [duration, setDuration] = useState("");
   const [applyBy, setApplyBy] = useState("");
   const [aboutInternship, setAboutInternship] = useState("");
   const [aboutCompany, setAboutCompany] = useState("");
@@ -58,10 +55,9 @@ const AddInternship = () => {
     formData.append("title", title);
     formData.append("companyName", companyName);
     formData.append("location", location);
-    formData.append("stipend", stipend);
+    formData.append("salary", salary);
     formData.append("companyLogo", companyLogo);
     formData.append("openings", openings);
-    formData.append("duration", duration);
     formData.append("startDate", startDate);
     formData.append("applyBy", applyBy);
     formData.append("aboutInternship", aboutInternship);
@@ -72,27 +68,25 @@ const AddInternship = () => {
 
     try {
       const response = await axios.post(
-        "http://localhost:4000/add-Internship",
+        "http://localhost:4000/add-job",
         formData,
         {
           headers: {
             "Content-Type": "multipart/form-data",
-            Authorization: `Bearer ${cookies.jwt}`,
           },
         }
       );
       setLoading(false);
       console.log("Form submitted:", response.data);
-      toast("Internship added successfully!");
+      toast("Job added successfully!");
       // Clear the form fields after successful submission
       setTitle("");
       setCompanyName("");
       setLocation("");
-      setStipend("");
+      setSalary("");
       setStartDate(null);
       setCompanyLogo(null);
       setOpenings("");
-      setDuration("");
       setApplyBy("");
       setAboutInternship("");
       setAboutCompany("");
@@ -101,8 +95,8 @@ const AddInternship = () => {
       setWhoCanApply("");
     } catch (error) {
       setLoading(false);
-      console.error("There was an error adding the internship:", error);
-      toast("Failed to add internship.");
+      console.error("There was an error adding the Job:", error);
+      toast("Failed to add Job.");
     }
   };
 
@@ -122,15 +116,15 @@ const AddInternship = () => {
         <div className="md:flex md:p-5 md:justify-between md:relative">
           <div className="md:w-[60vw] rounded">
             <h1 className="text-2xl md:text-4xl font-semibold">
-              New Internship Listing
+              New Job Listing
             </h1>
             <form onSubmit={handleSubmit}>
               <div className="py-4 flex flex-col md:flex-row md:flex gap-5 md:gap-10 pt-4">
                 <div className="grid max-w-sm items-center gap-1.5  md:w-[17vw]">
-                  <Label htmlFor="Internship">Title</Label>
+                  <Label htmlFor="job">Title</Label>
                   <Input
                     type="text"
-                    id="Internship"
+                    id="job"
                     placeholder="e.g., Software Engineering Intern"
                     value={title}
                     onChange={(e) => setTitle(e.target.value)}
@@ -204,13 +198,13 @@ const AddInternship = () => {
                   />
                 </div>
                 <div className="grid max-w-sm items-center gap-1.5 relative md:w-[17vw]">
-                  <Label htmlFor="Stipend">Stipend</Label>
+                  <Label htmlFor="salary">Salary</Label>
                   <Input
                     type="number"
-                    id="Stipend"
+                    id="salary"
                     placeholder="In Rupees"
-                    value={stipend}
-                    onChange={(e) => setStipend(e.target.value)}
+                    value={salary}
+                    onChange={(e) => setSalary(e.target.value)}
                     className="pl-8"
                   />
                   <BanknoteIcon
@@ -230,7 +224,7 @@ const AddInternship = () => {
                     onChange={(e) => setOpenings(e.target.value)}
                   />
                 </div>
-                <div className="grid max-w-sm items-center gap-1.5 md:w-[17vw]">
+                {/* <div className="grid max-w-sm items-center gap-1.5 md:w-[17vw]">
                   <Label htmlFor="Duration">Duration</Label>
                   <Input
                     type="number"
@@ -239,7 +233,7 @@ const AddInternship = () => {
                     value={duration}
                     onChange={(e) => setDuration(e.target.value)}
                   />
-                </div>
+                </div> */}
                 <div className="grid max-w-sm items-center gap-1.5 relative md:w-[17vw]">
                   <Label htmlFor="ApplyBy">Apply by</Label>
                   <Popover>
@@ -333,7 +327,7 @@ const AddInternship = () => {
           </div>
           <div className="hidden md:block md:w-[30vw] md:sticky md:top-10 mt-5 md:mt-0 bg-slate-50 h-[40vh] rounded">
             <img
-              src="/img_temp.jpg"
+              src="/job_img.jpg"
               alt=""
               className="w-[30vw] h-[85vh] rounded object-cover sticky top-0"
             />
@@ -344,4 +338,4 @@ const AddInternship = () => {
   );
 };
 
-export default AddInternship;
+export default AddJob;

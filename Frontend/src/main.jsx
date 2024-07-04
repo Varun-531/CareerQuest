@@ -10,6 +10,8 @@ import { SignedIn } from "@clerk/clerk-react";
 import { Toaster } from "@/components/ui/sonner";
 import AddInternship from "./pages/AddInternship.jsx";
 import { ThemeProvider } from "./components/ThemeProvider.jsx";
+import AddJob from "./pages/AddJob.jsx";
+import { CookiesProvider } from "react-cookie";
 
 const PUBLISHABLE_KEY = import.meta.env.VITE_CLERK_PUBLISHABLE_KEY;
 
@@ -38,16 +40,26 @@ const router = createBrowserRouter([
           </SignedIn>
         ),
       },
+      {
+        path: "/add-job",
+        element: (
+          <SignedIn>
+            <AddJob />
+          </SignedIn>
+        ),
+      },
     ],
   },
 ]);
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
     <ClerkProvider publishableKey={PUBLISHABLE_KEY}>
-      <ThemeProvider defaultTheme="light" storageKey="vite-ui-theme">
-        <RouterProvider router={router} />
-        <Toaster />
-      </ThemeProvider>
+      <CookiesProvider defaultSetOptions={{ path: "/" }}>
+        <ThemeProvider defaultTheme="light" storageKey="vite-ui-theme">
+          <RouterProvider router={router} />
+          <Toaster />
+        </ThemeProvider>
+      </CookiesProvider>
     </ClerkProvider>
   </React.StrictMode>
 );

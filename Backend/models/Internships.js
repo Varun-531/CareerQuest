@@ -142,6 +142,11 @@ const InternshipSchema = new mongoose.Schema(
       required: true,
       default: [],
     },
+    selectedPeople: {
+      type: [String],
+      required: true,
+      default: [],
+    },
   },
   {
     timestamps: true,
