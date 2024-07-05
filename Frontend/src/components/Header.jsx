@@ -74,9 +74,13 @@ const Header = () => {
             <h2 className="hidden md:font-bold md:text-xl md:block">
               CareerQuest
             </h2>
-            {/* <h2 className="font-bold text-xl md:hidden">CQ</h2> */}
           </div>
-          <h2 className="hidden md:block cursor-pointer">Internships</h2>
+          <h2
+            className="hidden md:block cursor-pointer"
+            onClick={() => navigate("/internships")}
+          >
+            Internships
+          </h2>
           <h2 className="hidden md:block cursor-pointer">Jobs</h2>
           <h2 className="hidden md:block cursor-pointer">Courses</h2>
           {isAdmin && (
@@ -114,7 +118,10 @@ const Header = () => {
                   <Ellipsis />
                 </NavigationMenuTrigger>
                 <NavigationMenuContent className="flex flex-col p-3 bg-white rounded-md dark:bg-slate-700 shadow-md">
-                  <NavigationMenuLink className="text-center text-sm hover:bg-slate-200 dark:hover:bg-slate-600 rounded-lg p-2">
+                  <NavigationMenuLink
+                    className="text-center text-sm hover:bg-slate-200 dark:hover:bg-slate-600 rounded-lg p-2"
+                    onClick={() => navigate("/internships")}
+                  >
                     Internships
                   </NavigationMenuLink>
                   <NavigationMenuLink className="text-center text-sm hover:bg-slate-200 dark:hover:bg-slate-600 rounded-lg p-2">

@@ -26,27 +26,6 @@ mongoose
   .then(() => console.log(`MongoDB connected: ${mongoose.connection.name}`))
   .catch((err) => console.log(err));
 
-// const verifyToken = (req, res, next) => {
-//   const authHeader = req.headers["authorization"];
-//   // console.log("Auth Header:", authHeader);
-//   if (!authHeader) {
-//     return res.status(401).json({ message: "Access Denied" });
-//   }
-//   const token = authHeader.split(" ")[1]; // Extract the token from "Bearer <token>"
-//   console.log("Token:", token);
-//   if (!token) {
-//     return res.status(401).json({ message: "Access Denied" });
-//   }
-//   try {
-//     const decoded = jwt.verify(token, "token");
-//     req.user = decoded;
-//     next();
-//   } catch (error) {
-//     console.error("Error verifying token:", error);
-//     return res.status(400).json({ message: "Invalid token" });
-//   }
-// };
-
 app.post(
   "/add-internship",
   // verifyToken,
@@ -105,6 +84,18 @@ app.post(
   }
 );
 
+app.get("/all-internships", async (req, res) => {
+  try {
+    const internships = await Internship.find();
+    res.status(200).json(internships);
+  } catch (error) {
+    console.error("Error fetching internships:", error);
+    res
+      .status(500)
+      .json({ message: error.message || "Failed to fetch internships" });
+  }
+});
+
 app.post(
   "/add-job",
   // verifyToken,
@@ -162,6 +153,19 @@ app.post(
     }
   }
 );
+
+app.get("/fetch-internship/:id", async (req, res) => {
+  const id = req.params.id;
+  try {
+    const internship = await Internship.findById(id);
+    res.status(200).json(internship);
+  } catch (error) {
+    console.error("Error fetching internship:", error);
+    res
+      .status(500)
+      .json({ message: error.message || "Failed to fetch internship" });
+  }
+});
 
 app.listen(4000, () => {
   console.log("Server is running on port 4000");

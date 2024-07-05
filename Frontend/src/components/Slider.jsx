@@ -21,11 +21,9 @@ const Slider = () => {
           {Array.from({ length: 5 }).map((_, index) => (
             <CarouselItem key={index} className="md:basis-1/2 lg:basis-1/3">
               <div className="">
-                {/* <Card> */}
                 <CardContent className="flex items-center justify-center">
                   <CardItem />
                 </CardContent>
-                {/* </Card> */}
               </div>
             </CarouselItem>
           ))}
