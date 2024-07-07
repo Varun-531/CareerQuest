@@ -9,28 +9,44 @@ import {
 } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
 import { Badge } from "@/components/ui/badge";
-import { AspectRatio } from "@radix-ui/react-aspect-ratio";
 import { Banknote, Calendar, ChevronRight, MapPin } from "lucide-react";
-import { Button } from "./ui/button";
-const InternCard = ({ type }) => {
+import { useNavigate } from "react-router-dom";
+
+const InternCard = ({ type, internship }) => {
+  const navigate = useNavigate();
+
+  const handleClick = (id) => {
+    if (id) {
+      const term = type === "Internship" ? "internships" : "jobs";
+      console.log("Navigating to internship with ID:", id);
+      navigate(`/${term}/${id}`, { state: { id } });
+    } else {
+      console.error("Invalid internship ID:", id);
+    }
+  };
+
+  const formatSalary = (salary) => {
+    if (salary !== undefined && salary !== null) {
+      return salary.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+    }
+    return "N/A"; // Return "N/A" or any other default value if salary is undefined
+  };
+
   return (
     <div>
       <Card className="md:w-[30vw] lg:w-[20vw] w-[70vw] h-fit group hover:scale-105 mt-10">
         <CardHeader>
-          <CardTitle>MERN Stack Developer</CardTitle>
-          <CardDescription>Unlock the potential within you</CardDescription>
+          <CardTitle className="truncate max-w-full">
+            {internship.title}
+          </CardTitle>
+          <CardDescription className="truncate max-w-full">
+            {internship.companyName}
+          </CardDescription>
         </CardHeader>
         <CardContent className="flex justify-between items-center font-semibold pb-2">
-          Varun Solutions
-          {/* <AspectRatio ratio={1 / 1} className="flex justify-center ">
-            <img
-              src="https://images.unsplash.com/photo-1580894732444-8ecded7900cd?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MzJ8fGpvYnN8ZW58MHx8MHx8fDA%3D"
-              alt="Image"
-              className="rounded-md object-cover flex w-[50px] h-[50px]"
-            />
-          </AspectRatio> */}
+          <h1 className="truncate max-w-full">{internship.companyName}</h1>
           <img
-            src="https://images.unsplash.com/photo-1580894732444-8ecded7900cd?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MzJ8fGpvYnN8ZW58MHx8MHx8fDA%3D"
+            src={internship.companyLogo}
             alt=""
             className="w-[50px] h-[50px] rounded group-hover:scale-105 object-cover"
           />
@@ -38,18 +54,28 @@ const InternCard = ({ type }) => {
         <Separator className="my-3" />
         <CardContent className="flex text-sm gap-1 items-center pb-2 font-semibold">
           <MapPin className="h-4" />
-          Kakinada
+          <span className="truncate max-w-full">{internship.location}</span>
         </CardContent>
         <CardContent className="flex text-sm gap-1 items-center pb-2 font-semibold">
           <Banknote className="h-4" />
-          $130
+          {type === "Internship" ? (
+            <>{formatSalary(internship.stipend)}</>
+          ) : (
+            <>{formatSalary(internship.salary)}</>
+          )}
         </CardContent>
-        <CardContent className="flex text-sm gap-1 items-center pb-2 font-semibold">
-          <Calendar className="h-4" />6 Months
-        </CardContent>
+        {type === "Internship" && (
+          <CardContent className="flex text-sm gap-1 items-center pb-2 font-semibold">
+            <Calendar className="h-4" />
+            {internship.duration} Months
+          </CardContent>
+        )}
         <CardFooter className="flex items-center font-semibold text-sky-600 text-xs mb-2 mx-2 justify-between p-0">
           <Badge variant="secondary">{type}</Badge>
-          <div className="w-fit flex items-center cursor-pointer">
+          <div
+            className="w-fit flex items-center cursor-pointer"
+            onClick={() => handleClick(internship._id)}
+          >
             View Details . .
             <ChevronRight className="h-4" />
           </div>
