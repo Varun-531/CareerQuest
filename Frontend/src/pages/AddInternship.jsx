@@ -20,6 +20,7 @@ import axios from "axios";
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css"; // Import the styles
 import { HashLoader } from "react-spinners";
+import { Checkbox } from "@/components/ui/checkbox";
 
 const AddInternship = () => {
   const [cookies, setCookie, removeCookie] = useCookies(["jwt"]);
@@ -35,6 +36,7 @@ const AddInternship = () => {
       navigate("/dashboard");
     }
   }, [isSignedIn, isLoaded, user, navigate]);
+
   const [loading, setLoading] = useState(false);
   const [title, setTitle] = useState("");
   const [companyName, setCompanyName] = useState("");
@@ -50,6 +52,7 @@ const AddInternship = () => {
   const [skillsRequired, setSkillsRequired] = useState("");
   const [whoCanApply, setWhoCanApply] = useState("");
   const [startDate, setStartDate] = useState(null);
+  const [job, setJob] = useState(false);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -63,6 +66,7 @@ const AddInternship = () => {
     formData.append("openings", openings);
     formData.append("duration", duration);
     formData.append("startDate", startDate);
+    formData.append("job", job);
     formData.append("applyBy", applyBy);
     formData.append("aboutInternship", aboutInternship);
     formData.append("aboutCompany", aboutCompany);
@@ -88,6 +92,7 @@ const AddInternship = () => {
       setTitle("");
       setCompanyName("");
       setLocation("");
+      setJob(false);
       setStipend("");
       setStartDate(null);
       setCompanyLogo(null);
@@ -95,6 +100,7 @@ const AddInternship = () => {
       setDuration("");
       setApplyBy("");
       setAboutInternship("");
+      setCompanyLogo(null);
       setAboutCompany("");
       setPerks("");
       setSkillsRequired("");
@@ -270,13 +276,37 @@ const AddInternship = () => {
                   </Popover>
                 </div>
               </div>
+              <div className="flex items-center space-x-2">
+                <Checkbox
+                  id="terms2"
+                  checked={job}
+                  onClick={() => {
+                    setJob(!job);
+                    console.log("Job:", !job);
+                  }}
+                />
+
+                <label
+                  htmlFor="terms2"
+                  className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+                >
+                  Internship with Job Offer
+                </label>
+              </div>
               <div>
                 <div className="py-4">
                   <Label htmlFor="aboutInternship">About Internship</Label>
-                  <ReactQuill
+                  {/* <ReactQuill
                     className="w-full rounded md:pr-5"
                     value={aboutInternship}
                     onChange={setAboutInternship}
+                  /> */}
+                  <Textarea
+                    placeholder="Each perk on a new line"
+                    id="perks"
+                    value={aboutInternship}
+                    onChange={(e) => setAboutInternship(e.target.value)}
+                    className="min-h-20 md:w-[58vw]"
                   />
                 </div>
               </div>

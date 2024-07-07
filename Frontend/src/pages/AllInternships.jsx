@@ -9,35 +9,55 @@ import {
 } from "@/components/ui/breadcrumb";
 import axios from "axios";
 import InternSlimCard from "@/components/InternSlimCard";
+import { HashLoader } from "react-spinners";
 
 const AllInternships = () => {
   const [internships, setInternships] = useState([]);
   const [error, setError] = useState(null);
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
+    setLoading(true);
     axios
       .get("http://localhost:4000/all-internships")
       .then((res) => {
         console.log("Fetched internships:", res.data);
         setInternships(res.data);
+        setLoading(false);
       })
       .catch((err) => {
         console.error("Error fetching internships:", err);
         setError("Failed to fetch internships. Please try again later.");
+        setLoading(false);
       });
   }, []);
 
   return (
     <>
+      {loading && (
+        <div className="fixed top-0 left-0 h-full w-full bg-opacity-60 bg-slate-200 flex justify-center items-center z-50">
+          <HashLoader
+            color="#3f3737"
+            speedMultiplier={1}
+            loading={loading}
+            size={30}
+          />
+        </div>
+      )}
       <div className="p-7">
         <Breadcrumb>
           <BreadcrumbList>
             <BreadcrumbItem>
-              <BreadcrumbLink href="/dashboard">Home</BreadcrumbLink>
+              <BreadcrumbLink
+                className="font-semibold cursor-pointer"
+                href="/dashboard"
+              >
+                Home
+              </BreadcrumbLink>
             </BreadcrumbItem>
             <BreadcrumbSeparator />
             <BreadcrumbItem>
-              <BreadcrumbPage className="font-semibold">
+              <BreadcrumbPage className="font-semibold cursor-pointer">
                 Internships
               </BreadcrumbPage>
             </BreadcrumbItem>

@@ -14,6 +14,8 @@ import AddJob from "./pages/AddJob.jsx";
 import { CookiesProvider } from "react-cookie";
 import AllInternships from "./pages/AllInternships.jsx";
 import InternshipDetails from "./pages/InternshipDetails.jsx";
+import AllJobs from "./pages/AllJobs.jsx";
+import JobDetail from "./pages/JobDetail.jsx";
 
 const PUBLISHABLE_KEY = import.meta.env.VITE_CLERK_PUBLISHABLE_KEY;
 
@@ -57,6 +59,14 @@ const router = createBrowserRouter([
       {
         path: "/internships/:id",
         element: <InternshipDetails />,
+      },
+      {
+        path: "/jobs",
+        element: <AllJobs />,
+      },
+      {
+        path: "/jobs/:id",
+        element: <JobDetail />,
       },
     ],
   },

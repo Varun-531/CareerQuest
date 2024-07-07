@@ -4,12 +4,8 @@
 // import { useNavigate } from "react-router-dom";
 // import { format } from "timeago.js";
 // import { Badge } from "./ui/badge";
-
-// const InternSlimCard = ({ props }) => {
+// const jobSlimCard = () => {
 //   const navigate = useNavigate();
-//   const formatSalary = (salary) => {
-//     return salary.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-//   };
 //   const handleClick = (id) => {
 //     if (id) {
 //       console.log("Navigating to internship with ID:", id);
@@ -52,7 +48,7 @@
 //               strokeWidth={1}
 //               size={20}
 //             />
-//             {formatSalary(props.salary)}
+//             {props.stipend}
 //           </h3>
 //         </div>
 //         <div>
@@ -83,27 +79,22 @@
 //   );
 // };
 
-// export default InternSlimCard;
+// export default jobSlimCard;
 
 import React from "react";
 import { Banknote, CalendarRange, Dot, History, MapPin } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import { format } from "timeago.js";
 
-const InternSlimCard = ({ props }) => {
-  const navigate = useNavigate();
-
+const JobSlimCard = ({ props }) => {
   const formatSalary = (salary) => {
-    if (salary !== undefined && salary !== null) {
-      return salary.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-    }
-    return "N/A"; // Return "N/A" or any other default value if salary is undefined
+    return salary.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
   };
-
+  const navigate = useNavigate();
   const handleClick = (id) => {
     if (id) {
       console.log("Navigating to internship with ID:", id);
-      navigate(`/internships/${id}`, { state: { id } });
+      navigate(`/jobs/${id}`, { state: { id } });
     } else {
       console.error("Invalid internship ID:", id);
     }
@@ -142,7 +133,7 @@ const InternSlimCard = ({ props }) => {
               strokeWidth={1}
               size={20}
             />
-            {formatSalary(props.stipend)}
+            {formatSalary(props.salary)}
           </h3>
         </div>
         <div>
@@ -154,10 +145,10 @@ const InternSlimCard = ({ props }) => {
               </h1>
             </div>
             <div>
-              {props.job && (
+              {props.fresherJob && (
                 <h2 className="text-xs flex items-center font-semibold text-gray-500">
                   <Dot />
-                  Internship with job offer
+                  fresher job
                 </h2>
               )}
             </div>
@@ -173,4 +164,4 @@ const InternSlimCard = ({ props }) => {
   );
 };
 
-export default InternSlimCard;
+export default JobSlimCard;

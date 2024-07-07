@@ -20,9 +20,13 @@ cloudinary.config({
 });
 
 const upload = multer({ dest: "uploads/" });
-
+const options = {
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
+  serverSelectionTimeoutMS: 5000,
+};
 mongoose
-  .connect(process.env.MONGO_URL)
+  .connect(process.env.MONGO_URL, options)
   .then(() => console.log(`MongoDB connected: ${mongoose.connection.name}`))
   .catch((err) => console.log(err));
 
@@ -36,6 +40,8 @@ app.post(
       startDate,
       companyName,
       stipend,
+
+      job,
       openings,
       location,
       duration,
@@ -65,6 +71,7 @@ app.post(
         location,
         openings,
         duration,
+        job,
         applyBy,
         aboutInternship,
         perks: perks.split("\n"),
@@ -96,6 +103,16 @@ app.get("/all-internships", async (req, res) => {
   }
 });
 
+app.get("/all-jobs", async (req, res) => {
+  try {
+    const jobs = await Job.find();
+    res.status(200).json(jobs);
+  } catch (error) {
+    console.error("Error fetching jobs:", error);
+    res.status(500).json({ message: error.message || "Failed to fetch jobs" });
+  }
+});
+
 app.post(
   "/add-job",
   // verifyToken,
@@ -108,7 +125,8 @@ app.post(
       salary,
       openings,
       location,
-      // duration,
+      fresherJob,
+      ctc,
       applyBy,
       aboutInternship,
       perks = "",
@@ -136,6 +154,8 @@ app.post(
         openings,
         // duration,
         applyBy,
+        fresherJob,
+        ctc,
         aboutInternship,
         perks: perks.split("\n"),
         skills: skills.split("\n"),
@@ -157,8 +177,20 @@ app.post(
 app.get("/fetch-internship/:id", async (req, res) => {
   const id = req.params.id;
   try {
-    const internship = await Internship.findById(id);
+    const internship = await Internship.findById(id).sort({ createdAt: -1 });
     res.status(200).json(internship);
+  } catch (error) {
+    console.error("Error fetching internship:", error);
+    res
+      .status(500)
+      .json({ message: error.message || "Failed to fetch internship" });
+  }
+});
+app.get("/fetch-job/:id", async (req, res) => {
+  const id = req.params.id;
+  try {
+    const job = await Job.findById(id).sort({ createdAt: -1 });
+    res.status(200).json(job);
   } catch (error) {
     console.error("Error fetching internship:", error);
     res

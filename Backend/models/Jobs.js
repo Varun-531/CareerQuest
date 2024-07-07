@@ -27,6 +27,16 @@ const JobSchema = new mongoose.Schema(
       required: true,
       min: 0,
     },
+    ctc: {
+      type: Boolean,
+      required: true,
+      default: false,
+    },
+    fresherJob: {
+      type: Boolean,
+      required: true,
+      default: false,
+    },
     openings: {
       type: Number,
       required: true,

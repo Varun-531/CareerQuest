@@ -137,6 +137,11 @@ const InternshipSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
+    job: {
+      type: Boolean,
+      required: true,
+      default: false,
+    },
     appliedPeople: {
       type: [String],
       required: true,

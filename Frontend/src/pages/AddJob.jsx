@@ -19,6 +19,7 @@ import axios from "axios";
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css"; // Import the styles
 import { HashLoader } from "react-spinners";
+import { Checkbox } from "@/components/ui/checkbox";
 
 const AddJob = () => {
   const navigate = useNavigate();
@@ -47,6 +48,8 @@ const AddJob = () => {
   const [skillsRequired, setSkillsRequired] = useState("");
   const [whoCanApply, setWhoCanApply] = useState("");
   const [startDate, setStartDate] = useState(null);
+  const [ctc, setCtc] = useState(false);
+  const [fresher, setFresher] = useState(false);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -63,6 +66,8 @@ const AddJob = () => {
     formData.append("aboutInternship", aboutInternship);
     formData.append("aboutCompany", aboutCompany);
     formData.append("perks", perks);
+    formData.append("ctc", ctc);
+    formData.append("fresherJob", fresher);
     formData.append("skillsRequired", skillsRequired);
     formData.append("whoCanApply", whoCanApply);
 
@@ -88,6 +93,8 @@ const AddJob = () => {
       setCompanyLogo(null);
       setOpenings("");
       setApplyBy("");
+      setCtc(false);
+      setFresher(false);
       setAboutInternship("");
       setAboutCompany("");
       setPerks("");
@@ -264,13 +271,49 @@ const AddJob = () => {
                   </Popover>
                 </div>
               </div>
+              <div className="flex items-center space-x-2">
+                <Checkbox
+                  id="terms2"
+                  checked={ctc}
+                  onClick={() => {
+                    setCtc(!ctc);
+                    console.log("ctc:", !ctc);
+                  }}
+                />
+
+                <label
+                  htmlFor="terms2"
+                  className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+                >
+                  CTC
+                </label>
+              </div>
+              <div className="flex items-center mt-3 space-x-2">
+                <Checkbox
+                  id="terms3"
+                  checked={fresher}
+                  onClick={() => {
+                    setFresher(!fresher);
+                    console.log("ctc:", !fresher);
+                  }}
+                />
+
+                <label
+                  htmlFor="terms3"
+                  className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+                >
+                  Fresher job
+                </label>
+              </div>
               <div>
                 <div className="py-4">
-                  <Label htmlFor="aboutInternship">About Internship</Label>
-                  <ReactQuill
-                    className="w-full rounded md:pr-5"
+                  <Label htmlFor="aboutInternship">About Job</Label>
+                  <Textarea
+                    placeholder="Each perk on a new line"
+                    id="perks"
                     value={aboutInternship}
-                    onChange={setAboutInternship}
+                    onChange={(e) => setAboutInternship(e.target.value)}
+                    className="min-h-20 md:w-[58vw]"
                   />
                 </div>
               </div>

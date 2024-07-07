@@ -81,7 +81,12 @@ const Header = () => {
           >
             Internships
           </h2>
-          <h2 className="hidden md:block cursor-pointer">Jobs</h2>
+          <h2
+            className="hidden md:block cursor-pointer"
+            onClick={() => navigate("/jobs")}
+          >
+            Jobs
+          </h2>
           <h2 className="hidden md:block cursor-pointer">Courses</h2>
           {isAdmin && (
             <NavigationMenu className="hidden md:block">
@@ -124,7 +129,10 @@ const Header = () => {
                   >
                     Internships
                   </NavigationMenuLink>
-                  <NavigationMenuLink className="text-center text-sm hover:bg-slate-200 dark:hover:bg-slate-600 rounded-lg p-2">
+                  <NavigationMenuLink
+                    className="text-center text-sm hover:bg-slate-200 dark:hover:bg-slate-600 rounded-lg p-2"
+                    onClick={() => navigate("/jobs")}
+                  >
                     Jobs
                   </NavigationMenuLink>
                   <NavigationMenuLink className="text-center text-sm hover:bg-slate-200 dark:hover:bg-slate-600 rounded-lg p-2">
