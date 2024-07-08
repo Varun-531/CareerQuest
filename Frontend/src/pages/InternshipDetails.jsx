@@ -21,16 +21,18 @@
 //   BreadcrumbPage,
 //   BreadcrumbSeparator,
 // } from "@/components/ui/breadcrumb";
-// import { Badge } from "@/components/ui/badge";
-// import ReactQuill from "react-quill";
 // import { Button } from "@/components/ui/button";
+// import { SignedIn, useUser } from "@clerk/clerk-react";
+// import { set } from "date-fns";
+// import { toast } from "sonner";
+// // import { SignedIn } from "@clerk/clerk-react";
 
 // const InternshipDetails = () => {
 //   const { id } = useParams();
 //   const [internship, setInternship] = useState(null);
 //   const [loading, setLoading] = useState(true);
 //   const [error, setError] = useState(null);
-
+//   const { isSignedIn, user, isLoaded } = useUser();
 //   useEffect(() => {
 //     axios
 //       .get(`http://localhost:4000/fetch-internship/${id}`)
@@ -43,7 +45,23 @@
 //         setError(err);
 //         setLoading(false);
 //       });
-//   }, [id]);
+//   }, []);
+//   const [applied, setApplied] = useState(false);
+//   useEffect(() => {
+//     if (SignedIn) {
+//       axios
+//         .post("http://localhost:4000/check-intern-application", {
+//           internId: id,
+//           clerkId: user.id,
+//         })
+//         .then((res) => {
+//           setApplied(res.data);
+//         })
+//         .catch((err) => {
+//           console.log(err);
+//         });
+//     }
+//   }, [SignedIn, user.id]);
 
 //   if (error) {
 //     return <div>Error fetching internship: {error.message}</div>;
@@ -52,12 +70,39 @@
 //   if (!internship) {
 //     return <div>No internship found</div>;
 //   }
+
 //   const formatDate = (dateString) => {
 //     const options = { year: "numeric", month: "long", day: "numeric" };
 //     return new Date(dateString).toLocaleDateString(undefined, options);
 //   };
+
 //   const formatSalary = (salary) => {
 //     return salary.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+//   };
+
+//   const handleApply = () => {
+//     if (SignedIn) {
+//       console.log("internId", internship._id);
+//       console.log("clerkId", user.id);
+//       setLoading(true);
+//       axios
+//         .post("http://localhost:4000/apply-internship", {
+//           internId: internship._id,
+//           clerkId: user.id,
+//         })
+//         .then((res) => {
+//           setLoading(false);
+//           console.log(res);
+//           toast("Applied Successfully");
+//         })
+//         .catch((err) => {
+//           setLoading(false);
+//           console.log(err);
+//           toast("Error Applying");
+//         });
+//     } else {
+//       toast("Please sign in to apply");
+//     }
 //   };
 
 //   return (
@@ -141,7 +186,7 @@
 //                   Stipend
 //                 </h2>
 //                 <p className="text-gray-600 text-sm font-semibold">
-//                   {formatSalary(props.stipend)} Rupees
+//                   {formatSalary(internship.stipend)} Rupees
 //                 </p>
 //               </div>
 //               <div className="flex flex-col items-baseline">
@@ -150,7 +195,7 @@
 //                   Apply By
 //                 </h2>
 //                 <p className="text-gray-600 text-sm font-semibold">
-//                   {internship.applyBy}
+//                   {formatDate(internship.applyBy)}
 //                 </p>
 //               </div>
 //             </div>
@@ -161,7 +206,6 @@
 //               </h2>
 //               {internship.job && (
 //                 <h2 className="text-xs flex items-center font-semibold mt-3 bg-slate-200 p-1 rounded text-gray-500">
-//                   {/* <Dot className="" /> */}
 //                   Internship with job offer
 //                 </h2>
 //               )}
@@ -196,8 +240,6 @@
 //               <h1 className="font-semibold text-lg mt-5 mb-1">Who can apply</h1>
 //               <div className="flex flex-wrap gap-5">
 //                 <ol className="list-decimal text-sm text-justify">
-//                   {" "}
-//                   {/* Added list-decimal and ml-4 for proper indentation */}
 //                   Only those candidates can apply who:
 //                   {internship.whoCanApply.map((perk, index) => (
 //                     <li
@@ -229,7 +271,17 @@
 //               </div>
 //             </div>
 //             <div className="flex justify-center mt-4">
-//               <Button className="text-base p-5">Apply now</Button>
+//               {applied ? (
+//                 <>
+//                   <Button className="cursor-not-allowed">Applied</Button>
+//                 </>
+//               ) : (
+//                 <>
+//                   <Button className="text-base p-5" onClick={handleApply}>
+//                     Apply now
+//                   </Button>
+//                 </>
+//               )}
 //             </div>
 //           </div>
 //           <img
@@ -270,12 +322,16 @@ import {
   BreadcrumbSeparator,
 } from "@/components/ui/breadcrumb";
 import { Button } from "@/components/ui/button";
+import { SignedIn, useUser } from "@clerk/clerk-react";
+import { toast } from "sonner";
 
 const InternshipDetails = () => {
   const { id } = useParams();
   const [internship, setInternship] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const { isSignedIn, user, isLoaded } = useUser();
+
   useEffect(() => {
     axios
       .get(`http://localhost:4000/fetch-internship/${id}`)
@@ -289,6 +345,32 @@ const InternshipDetails = () => {
         setLoading(false);
       });
   }, [id]);
+
+  const [applied, setApplied] = useState(false);
+
+  // useEffect(() => {
+  //   console.log("InternId", id);
+  //   console.log("ClerkId", user.id);
+  // }, [isLoaded, isSignedIn, user, id]);
+
+  useEffect(() => {
+    if (isLoaded && isSignedIn) {
+      console.log("internId", id);
+      console.log("clerkId", user.id);
+      axios
+        .post("http://localhost:4000/check-intern-application", {
+          internId: id,
+          clerkId: user.id,
+        })
+        .then((res) => {
+          setApplied(res.data);
+          console.log("Applied", res.data);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    }
+  }, [isLoaded, isSignedIn, user, id]);
 
   if (error) {
     return <div>Error fetching internship: {error.message}</div>;
@@ -305,6 +387,31 @@ const InternshipDetails = () => {
 
   const formatSalary = (salary) => {
     return salary.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+  };
+
+  const handleApply = () => {
+    if (isSignedIn) {
+      // console.log("internId", internship._id);
+      // console.log("clerkId", user.id);
+      setLoading(true);
+      axios
+        .post("http://localhost:4000/apply-internship", {
+          internId: internship._id,
+          clerkId: user.id,
+        })
+        .then((res) => {
+          setLoading(false);
+          console.log(res);
+          toast("Applied Successfully");
+        })
+        .catch((err) => {
+          setLoading(false);
+          console.log(err);
+          toast("Error Applying");
+        });
+    } else {
+      toast("Please sign in to apply");
+    }
   };
 
   return (
@@ -473,7 +580,17 @@ const InternshipDetails = () => {
               </div>
             </div>
             <div className="flex justify-center mt-4">
-              <Button className="text-base p-5">Apply now</Button>
+              {applied ? (
+                <>
+                  <Button className="cursor-not-allowed">Already</Button>
+                </>
+              ) : (
+                <>
+                  <Button className="text-base p-5" onClick={handleApply}>
+                    Apply now
+                  </Button>
+                </>
+              )}
             </div>
           </div>
           <img
