@@ -16,6 +16,8 @@ import AllInternships from "./pages/AllInternships.jsx";
 import InternshipDetails from "./pages/InternshipDetails.jsx";
 import AllJobs from "./pages/AllJobs.jsx";
 import JobDetail from "./pages/JobDetail.jsx";
+import Applications from "./pages/Applications.jsx";
+import ErrorPage from "./pages/ErrorPage.jsx";
 
 const PUBLISHABLE_KEY = import.meta.env.VITE_CLERK_PUBLISHABLE_KEY;
 
@@ -27,6 +29,7 @@ const router = createBrowserRouter([
   {
     path: "/",
     element: <App />,
+    // errorElement: <ErrorPage />,
     children: [
       {
         index: true,
@@ -67,6 +70,10 @@ const router = createBrowserRouter([
       {
         path: "/jobs/:id",
         element: <JobDetail />,
+      },
+      {
+        path: "/applications",
+        element: <Applications />,
       },
     ],
   },
