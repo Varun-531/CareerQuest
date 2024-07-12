@@ -36,21 +36,20 @@ import {
   SheetTitle,
   SheetTrigger,
 } from "@/components/ui/sheet";
-import { Label } from "./ui/label";
-import { Input } from "./ui/input";
 
 const Header = () => {
   const navigate = useNavigate();
   const [isAdmin, setIsAdmin] = useState(false);
   const [inputResume, setInputResume] = useState();
   const { isSignedIn, user, isLoaded } = useUser();
-
+  const [toastSent, setToastSent] = useState(false);
   useEffect(() => {
-    if (isSignedIn && isLoaded) {
+    if (isSignedIn && isLoaded && !toastSent) {
       toast(`Welcome to CareerQuest, ${user.username}`, {
         action: { label: "Undo" },
       });
       console.log("user", user);
+      setToastSent(true);
     }
   }, [isSignedIn, isLoaded, user]);
 

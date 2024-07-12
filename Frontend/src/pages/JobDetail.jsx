@@ -46,7 +46,7 @@ const JobDetail = () => {
         .then((res) => {
           setApplied(res.data.applied);
           console.log("Applied", res.data.applied);
-          toast("Applied Successfully");
+          // toast("Applied Successfully");
         })
         .catch((err) => {
           console.log(err);
