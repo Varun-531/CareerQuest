@@ -489,6 +489,27 @@ app.get("/fetch-all-applications", async (req, res) => {
   }
 });
 
+const CLERK_BASE_URL = "https://api.clerk.dev/v1";
+
+app.get("/fetch-user/:clerkId", async (req, res) => {
+  const clerkId = req.params.clerkId;
+  try {
+    const response = await fetch(`${CLERK_BASE_URL}/users/${clerkId}`, {
+      headers: {
+        Authorization: `Bearer ${process.env.JWT_SECRET}`,
+      },
+    });
+    if (!response.ok) {
+      throw new Error(`Error fetching user: ${response.statusText}`);
+    }
+    const data = await response.json();
+    res.status(200).json(data);
+  } catch (error) {
+    console.error("Error fetching user:", error);
+    res.status(500).json({ message: error.message || "Failed to fetch user" });
+  }
+});
+
 app.get("/fetch-all-internshipApplications", async (req, res) => {});
 
 app.listen(4000, () => {
