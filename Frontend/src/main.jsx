@@ -18,6 +18,7 @@ import AllJobs from "./pages/AllJobs.jsx";
 import JobDetail from "./pages/JobDetail.jsx";
 import Applications from "./pages/Applications.jsx";
 import ErrorPage from "./pages/ErrorPage.jsx";
+import AdminApplications from "./pages/AdminApplications.jsx";
 
 const PUBLISHABLE_KEY = import.meta.env.VITE_CLERK_PUBLISHABLE_KEY;
 
@@ -74,6 +75,10 @@ const router = createBrowserRouter([
       {
         path: "/applications",
         element: <Applications />,
+      },
+      {
+        path: "/admin-applications",
+        element: <AdminApplications />,
       },
     ],
   },

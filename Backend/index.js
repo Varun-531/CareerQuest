@@ -405,9 +405,11 @@ app.get("/fetch-job/:id", async (req, res) => {
 });
 
 app.post("/add-resume", resumeUpload.single("resume"), async (req, res) => {
-  const { clerkId, resume } = req.body;
-  // const resume = req.file ? req.file.path : null;
+  const { clerkId } = req.body;
+  const resume = req.file ? req.file.path : null;
+
   console.log("clerkId", clerkId, "resume", resume);
+
   try {
     if (!resume) {
       return res.status(400).json({ message: "Resume file is required" });
@@ -425,10 +427,12 @@ app.post("/add-resume", resumeUpload.single("resume"), async (req, res) => {
     if (existingResume) {
       existingResume.resume = resumeUrl;
       await existingResume.save();
+      console.log("Existing resume updated:", existingResume);
       res.status(200).json(existingResume);
     } else {
       const newResume = new Resume({ clerkId, resume: resumeUrl });
       await newResume.save();
+      console.log("New resume added:", newResume);
       res.status(201).json(newResume);
     }
   } catch (error) {
@@ -472,6 +476,20 @@ app.get("/resume-present/:clerkId", async (req, res) => {
       .json({ message: error.message || "Failed to fetch resume" });
   }
 });
+
+app.get("/fetch-all-applications", async (req, res) => {
+  try {
+    const applications = await InternApplications.find();
+    res.status(200).json(applications);
+  } catch (error) {
+    console.error("Error fetching applications:", error);
+    res
+      .status(500)
+      .json({ message: error.message || "Failed to fetch applications" });
+  }
+});
+
+app.get("/fetch-all-internshipApplications", async (req, res) => {});
 
 app.listen(4000, () => {
   console.log("Server is running on port 4000");

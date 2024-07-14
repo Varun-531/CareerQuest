@@ -119,14 +119,14 @@ const JobSlimCard = ({ props }) => {
             />
             {props.location}
           </h3>
-          <h3 className="flex gap-1 items-center font-semibold text-sm text-gray-600 dark:text-gray-300">
+          {/* <h3 className="flex gap-1 items-center font-semibold text-sm text-gray-600 dark:text-gray-300">
             <CalendarRange
               className="text-gray-400 dark:text-gray-100"
               strokeWidth={1}
               size={20}
             />
             {props.duration} months
-          </h3>
+          </h3> */}
           <h3 className="flex gap-1 items-center font-semibold text-sm text-gray-600 dark:text-gray-300">
             <Banknote
               className="text-gray-400 dark:text-gray-100"

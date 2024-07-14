@@ -141,7 +141,11 @@ const Header = () => {
           <h2 className="hidden md:block cursor-pointer">Courses</h2>
           <h2
             className="hidden md:block cursor-pointer"
-            onClick={() => navigate("/applications")}
+            onClick={() =>
+              isAdmin
+                ? navigate("/admin-applications")
+                : navigate("/applications")
+            }
           >
             Applications
           </h2>
@@ -166,9 +170,12 @@ const Header = () => {
                     <NavigationMenuLink className="text-center text-sm dark:hover:bg-slate-600 hover:bg-slate-200 rounded-lg p-2 cursor-pointer">
                       Course
                     </NavigationMenuLink>
-                    <NavigationMenuLink className="text-center text-sm dark:hover:bg-slate-600 hover:bg-slate-200 rounded-lg p-2 cursor-pointer">
+                    {/* <NavigationMenuLink
+                      className="text-center text-sm dark:hover:bg-slate-600 hover:bg-slate-200 rounded-lg p-2 cursor-pointer"
+                      // onClick={() => navigate("/admin-applications")}
+                    >
                       Applications
-                    </NavigationMenuLink>
+                    </NavigationMenuLink> */}
                   </NavigationMenuContent>
                 </NavigationMenuItem>
               </NavigationMenuList>
@@ -227,9 +234,12 @@ const Header = () => {
                   <NavigationMenuLink className="text-center text-sm hover:bg-slate-200 dark:hover:bg-slate-600 rounded-lg p-2 cursor-pointer">
                     Course
                   </NavigationMenuLink>
-                  <NavigationMenuLink className="text-center text-sm hover:bg-slate-200 dark:hover:bg-slate-600 rounded-lg p-2 cursor-pointer">
+                  {/* <NavigationMenuLink
+                    className="text-center text-sm hover:bg-slate-200 dark:hover:bg-slate-600 rounded-lg p-2 cursor-pointer"
+                    onClick={() => navigate("/admin-applications")}
+                  >
                     Applications
-                  </NavigationMenuLink>
+                  </NavigationMenuLink> */}
                 </NavigationMenuContent>
               </NavigationMenuItem>
             </NavigationMenuList>
@@ -264,19 +274,6 @@ const Header = () => {
             <Skeleton className="hidden md:block w-20 h-8 rounded" />
           </div>
         )}
-        <Sheet>
-          <SheetTrigger>Open</SheetTrigger>
-          <SheetContent side="right">
-            <SheetHeader>
-              <SheetTitle>Are you absolutely sure?</SheetTitle>
-              <SheetDescription>
-                This action cannot be undone. This will permanently delete your
-                account and remove your data from our servers.
-              </SheetDescription>
-            </SheetHeader>
-          </SheetContent>
-        </Sheet>
-        {/* </div> */}
         {isSignedIn ? (
           <div className="md:hidden">
             <SignedIn>

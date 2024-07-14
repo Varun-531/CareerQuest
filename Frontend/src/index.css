@@ -10,6 +10,9 @@ input::-webkit-inner-spin-button {
 ::-webkit-scrollbar {
   width: 0px;
 }
+.noScroll::-webkit-scrollbar {
+  width: 0px !important;
+}
 
 @layer base {
   :root {
