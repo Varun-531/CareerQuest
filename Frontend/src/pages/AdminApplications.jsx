@@ -716,13 +716,13 @@ const AdminApplications = () => {
                   </h2>
                   <div className="flex justify-between">
                     <div>
-                      <p>
-                        Applicant:{" "}
+                      <p className="font-semibold capitalize text-xl">
+                        {/* Applicant:{" "} */}
                         {userData[application.clerkId]?.username ||
                           "Fetching..."}
                       </p>
-                      <p>
-                        Email:{" "}
+                      <p className="text-slate-500 font-semibold text-sm">
+                        {/* Email:{" "} */}
                         {userData[application.clerkId]?.email || "Fetching..."}
                       </p>
                       <p className="font-semibold text-sky-500 cursor-pointer">
@@ -730,7 +730,7 @@ const AdminApplications = () => {
                           onClick={() => fetchResume(application.clerkId)}
                           className="cursor-pointer"
                         >
-                          Resume
+                          View Resume
                         </span>
                       </p>
                     </div>
@@ -749,65 +749,80 @@ const AdminApplications = () => {
                   </div>
                   {application.internships.length > 0 && (
                     <div className="mt-4">
-                      <h3 className="font-semibold">Internships:</h3>
+                      <h3 className="font-semibold mb-2">Internships:</h3>
                       {application.internships.map((internship, idx) => (
                         <div
                           key={idx}
-                          className="p-4 mb-4 border rounded shadow flex items-center justify-between"
+                          className="p-4 mb-2 shadow-md flex items-center justify-between rounded-sm"
                         >
                           <div>
-                            <p>Intern ID: {internship.internId}</p>
-                            <p>
-                              Title:{" "}
+                            {/* <p>Intern ID: {internship.internId}</p> */}
+                            <p className="font-semibold">
+                              {/* <span className="font-semibold">Title:</span>{" "} */}
                               {internshipData[internship.internId]?.title}
                             </p>
-                            <p>
-                              Company:{" "}
+                            <p className="font-semibold text-gray-400">
+                              {/* <span className="font-semibold">Company:</span>{" "} */}
                               {internshipData[internship.internId]?.company}
                             </p>
-                            <p>Status: {internship.status}</p>
+                            <p className="">
+                              <span className="font-semibold">Status:</span>{" "}
+                              {internship.status}
+                            </p>
                           </div>
-                          <div className="flex gap-2">
-                            <Button className="p-2" variant="outline">
-                              <Check size={20} className="text-green-400" />
-                            </Button>
-                            <Button className="p-2" variant="outline">
-                              <X size={20} className="text-red-400" />
-                            </Button>
-                          </div>
+                          {internship.status === "Pending" && (
+                            <div className="flex gap-2">
+                              <Button className="p-2" variant="outline">
+                                <Check size={20} className="text-green-400" />
+                              </Button>
+                              <Button className="p-2" variant="outline">
+                                <X size={20} className="text-red-400" />
+                              </Button>
+                            </div>
+                          )}
                         </div>
                       ))}
                     </div>
                   )}
                   {application.jobs.length > 0 && (
                     <div className="mt-4">
-                      <h3 className="font-semibold">Jobs:</h3>
+                      <h3 className="font-semibold mb-2">Jobs:</h3>
                       {application.jobs.map((job, idx) => (
                         <div
                           key={idx}
                           className="p-4 mb-4 border rounded shadow flex items-center justify-between"
                         >
                           <div>
-                            <p>Job ID: {job.jobId}</p>
-                            <p>Title: {jobData[job.jobId]?.title}</p>
-                            <p>Company: {jobData[job.jobId]?.company}</p>
-                            <p>Status: {job.status}</p>
+                            {/* <p>Job ID: {job.jobId}</p> */}
+                            <p className="font-semibold">
+                              {" "}
+                              {jobData[job.jobId]?.title}
+                            </p>
+                            <p className="font-semibold text-gray-400">
+                              {jobData[job.jobId]?.company}
+                            </p>
                             <p>
+                              <span className="font-semibold">Status:</span>{" "}
+                              {job.status}
+                            </p>
+                            {/* <p>
                               Applied People:{" "}
                               {jobData[job.jobId]?.appliedPeople
                                 .map((clerkId) => userData[clerkId]?.username)
                                 .filter((username) => username)
                                 .join(", ")}
-                            </p>
+                            </p> */}
                           </div>
-                          <div className="flex gap-2">
-                            <Button className="p-2" variant="outline">
-                              <Check size={20} className="text-green-400" />
-                            </Button>
-                            <Button className="p-2" variant="outline">
-                              <X size={20} className="text-red-400" />
-                            </Button>
-                          </div>
+                          {job.status === "Pending" && (
+                            <div className="flex gap-2">
+                              <Button className="p-2" variant="outline">
+                                <Check size={20} className="text-green-400" />
+                              </Button>
+                              <Button className="p-2" variant="outline">
+                                <X size={20} className="text-red-400" />
+                              </Button>
+                            </div>
+                          )}
                         </div>
                       ))}
                     </div>

@@ -23,7 +23,19 @@ import {
 } from "@/components/ui/breadcrumb";
 import { Button } from "@/components/ui/button";
 import { useUser } from "@clerk/clerk-react";
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogTrigger,
+} from "@/components/ui/alert-dialog";
 import { toast } from "sonner";
+import SideBar from "@/components/SideBar";
 
 const JobDetail = () => {
   const { id } = useParams();
@@ -33,7 +45,23 @@ const JobDetail = () => {
   const [error, setError] = useState(null);
   const [admin, setAdmin] = useState(false);
   const [applied, setApplied] = useState(false);
+  const [resume, setResume] = useState(false);
 
+  useEffect(() => {
+    if (isSignedIn && isLoaded) {
+      axios
+        .get(`http://localhost:4000/resume-present/${user.id}`)
+        .then((res) => {
+          if (res.status === 200) {
+            setResume(true);
+          }
+          console.log("Resume", res.status);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    }
+  }, [isSignedIn, isLoaded, user]);
   useEffect(() => {
     if (isLoaded && isSignedIn) {
       console.log("jobId", id);
@@ -112,6 +140,16 @@ const JobDetail = () => {
       toast("Please sign in to apply");
     }
   };
+  const openSideBar = () => {
+    setTimeout(() => {
+      const resumeElement = document.getElementById("resume");
+      if (resumeElement) {
+        resumeElement.click();
+      } else {
+        console.error("Resume element not found");
+      }
+    }, 100); // Adjust the delay time as needed
+  };
   return (
     <>
       {loading && (
@@ -124,7 +162,7 @@ const JobDetail = () => {
           />
         </div>
       )}
-      <div className="p-7">
+      <div className="p-7 flex justify-between items-center">
         <Breadcrumb>
           <BreadcrumbList>
             <BreadcrumbItem>
@@ -152,6 +190,7 @@ const JobDetail = () => {
             </BreadcrumbItem>
           </BreadcrumbList>
         </Breadcrumb>
+        <SideBar />
       </div>
 
       <div className="p-10 px-20">
@@ -281,14 +320,52 @@ const JobDetail = () => {
                 <>
                   {applied ? (
                     <>
-                      <Button className="bg-slate-700 cursor-not-allowed">
+                      <Button disabled className="bg-black text-white text-sm">
                         Applied
                       </Button>
                     </>
                   ) : (
-                    <Button className="text-base p-5" onClick={handleApply}>
-                      Apply now
-                    </Button>
+                    <AlertDialog>
+                      <AlertDialogTrigger asChild>
+                        <Button className="text-base p-5">Apply now</Button>
+                      </AlertDialogTrigger>
+                      <AlertDialogContent>
+                        <AlertDialogHeader>
+                          <AlertDialogTitle>
+                            Are you absolutely sure?
+                          </AlertDialogTitle>
+                          {resume ? (
+                            <AlertDialogDescription>
+                              Your latest resume will be shared with the Admin
+                              for your applications.
+                            </AlertDialogDescription>
+                          ) : (
+                            <AlertDialogDescription>
+                              Upload your resume to apply for internships and
+                              jobs.
+                            </AlertDialogDescription>
+                          )}
+                        </AlertDialogHeader>
+                        <AlertDialogFooter>
+                          {resume ? (
+                            <>
+                              <AlertDialogCancel onClick={openSideBar}>
+                                Update Resume
+                              </AlertDialogCancel>
+                              <AlertDialogAction onClick={handleApply}>
+                                Continue
+                              </AlertDialogAction>
+                            </>
+                          ) : (
+                            <>
+                              <AlertDialogCancel onClick={openSideBar}>
+                                Upload Resume
+                              </AlertDialogCancel>
+                            </>
+                          )}
+                        </AlertDialogFooter>
+                      </AlertDialogContent>
+                    </AlertDialog>
                   )}
                 </>
               )}
