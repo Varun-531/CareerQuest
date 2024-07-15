@@ -120,8 +120,8 @@ const AllInternships = () => {
         <h2 className="text-center font-semibold text-2xl">
           {filteredInternships.length} internships available
         </h2>
-        <div className="flex gap-3 justify-center p-4">
-          <div className="w-[25vw] shadow-lg dark:bg-slate-800 rounded-sm p-5 flex flex-col gap-2 h-fit sticky top-10">
+        <div className="md:flex gap-3 justify-center p-4">
+          <div className="md:w-[25vw] shadow-lg dark:bg-slate-800 rounded-sm p-5 flex flex-col gap-2 h-fit md:sticky md:top-10">
             <h1 className="text-center font-semibold text-xl capitalize flex items-center justify-center gap-1">
               <Filter size={22} className="text-slate-400" /> filters
             </h1>
@@ -174,7 +174,7 @@ const AllInternships = () => {
                 defaultValue={[0]}
                 value={[stipend]}
                 onValueChange={(newValue) => setStipend(newValue[0])}
-                className="w-[20vw] bg-slate-40 rounded-sm"
+                className="md:w-[20vw] bg-slate-40 rounded-sm"
                 max={30000}
                 min={0}
                 step={5000}
@@ -184,7 +184,7 @@ const AllInternships = () => {
               Clear All
             </Button>
           </div>
-          <div className="w-[40vw] rounded-sm">
+          <div className="md:w-[40vw] rounded-sm md:mt-0 mt-10">
             {filteredInternships.map((internship) => (
               <InternSlimCard key={internship.id} props={internship} />
             ))}

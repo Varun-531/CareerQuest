@@ -197,11 +197,11 @@ const Applications = () => {
             </Breadcrumb>
             <SideBar />
           </div>
-          <div className="p-10 pt-0 font-semibold text-3xl text-center">
+          <div className="md:p-10 pt-0 font-semibold text-3xl text-center">
             Your Applications
           </div>
           {internships.length > 0 && (
-            <div className="p-10 pt-3 flex flex-col gap-2">
+            <div className="md:p-10 pt-3 flex flex-col gap-2">
               <h1 className="text-xl font-bold">Internship Applications</h1>
               <Table className="border rounded">
                 <TableHeader className="">
