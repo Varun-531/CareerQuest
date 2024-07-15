@@ -1,8 +1,21 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Flame } from "lucide-react";
 import Slider from "@/components/Slider";
 import InternSlider from "@/components/InternSlider";
+import { useUser } from "@clerk/clerk-react";
+import { toast } from "sonner";
 const Dashboard = () => {
+  const [toastSend, setToastSend] = useState(false);
+  const { isSignedIn, user, isLoaded } = useUser();
+  useEffect(() => {
+    if (isSignedIn && isLoaded && !toastSend) {
+      toast(`Welcome to CareerQuest, ${user.username}`, {
+        action: { label: "Undo" },
+      });
+      console.log("user", user);
+      setToastSend(true);
+    }
+  }, [isSignedIn, isLoaded, user]);
   return (
     <div>
       <div className="h-[15vh] md:h-[30vh] flex items-center justify-center pt-5">

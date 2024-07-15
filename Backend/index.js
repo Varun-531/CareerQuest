@@ -35,6 +35,8 @@ mongoose
   .then(() => console.log(`MongoDB connected: ${mongoose.connection.name}`))
   .catch((err) => console.log(err));
 
+const CLERK_BASE_URL = "https://api.clerk.dev/v1";
+
 const verifyToken = async (req, res, next) => {
   const token = req.headers.authorization?.split(" ")[1];
   console.log("Token:", token);
@@ -489,7 +491,245 @@ app.get("/fetch-all-applications", async (req, res) => {
   }
 });
 
-const CLERK_BASE_URL = "https://api.clerk.dev/v1";
+app.post("/accept-internship", async (req, res) => {
+  const { clerkId, internId } = req.body;
+  console.log("clerkId", clerkId, "internId", internId);
+  // return res.status(200).json({ message: "Success" });
+  if (!clerkId || !internId) {
+    return res
+      .status(400)
+      .json({ message: "clerkId and internId are required" });
+  }
+  try {
+    let existingApplication = await InternApplications.findOne({ clerkId });
+
+    if (existingApplication) {
+      // Check if the internship already exists
+      const internshipIndex = existingApplication.internships.findIndex(
+        (internship) => internship.internId === internId
+      );
+
+      if (internshipIndex === -1) {
+        // If the internship does not exist, add it
+        existingApplication.internships.push({
+          internId: internId,
+          status: "Accepted",
+        });
+      } else {
+        // If the internship exists, update the status
+        existingApplication.internships[internshipIndex].status = "Accepted";
+      }
+
+      await existingApplication.save();
+      res.status(200).json(existingApplication);
+    } else {
+      // If there is no existing application, create a new one
+      const newApplication = new InternApplications({
+        clerkId,
+        internships: [
+          {
+            internId: internId,
+            status: "Accepted",
+          },
+        ],
+      });
+      await newApplication.save();
+      res.status(201).json(newApplication);
+    }
+
+    // Add clerkId to internship.appliedPeople
+    const internship = await Internship.findById(internId);
+    if (internship) {
+      if (!internship.selectedPeople.includes(clerkId)) {
+        internship.selectedPeople.push(clerkId);
+      }
+      await internship.save();
+    }
+  } catch (error) {
+    console.error("Error applying internship:", error);
+    res
+      .status(500)
+      .json({ message: error.message || "Failed to apply internship" });
+  }
+});
+
+app.post("/reject-internship", async (req, res) => {
+  const { clerkId, internId } = req.body;
+  console.log("clerkId", clerkId, "internId", internId);
+  // return res.status(200).json({ message: "Success"
+  if (!clerkId || !internId) {
+    return res
+      .status(400)
+      .json({ message: "clerkId and internId are required" });
+  }
+  try {
+    let existingApplication = await InternApplications.findOne({ clerkId });
+
+    if (existingApplication) {
+      // Check if the internship already exists
+      const internshipIndex = existingApplication.internships.findIndex(
+        (internship) => internship.internId === internId
+      );
+
+      if (internshipIndex === -1) {
+        // If the internship does not exist, add it
+        existingApplication.internships.push({
+          internId: internId,
+          status: "Rejected",
+        });
+      } else {
+        // If the internship exists, update the status
+        existingApplication.internships[internshipIndex].status = "Rejected";
+      }
+
+      await existingApplication.save();
+      res.status(200).json(existingApplication);
+    } else {
+      // If there is no existing application, create a new one
+      const newApplication = new InternApplications({
+        clerkId,
+        internships: [
+          {
+            internId: internId,
+            status: "Rejected",
+          },
+        ],
+      });
+      await newApplication.save();
+      res.status(201).json(newApplication);
+    }
+
+    // Add clerkId to internship.appliedPeople
+    const internship = await Internship.findById(internId);
+    if (internship) {
+      if (!internship.appliedPeople.includes(clerkId)) {
+        internship.appliedPeople.push(clerkId);
+      }
+      await internship.save();
+    }
+  } catch (error) {
+    console.error("Error applying internship:", error);
+    res
+      .status(500)
+      .json({ message: error.message || "Failed to apply internship" });
+  }
+});
+
+app.post("/accept-job", async (req, res) => {
+  const { clerkId, jobId } = req.body;
+  console.log("clerkId", clerkId, "jobId", jobId);
+  // return res.status(200).json({message:"Success"});
+  if (!clerkId || !jobId) {
+    return res.status(400).json({ message: "clerkId and jobId are required" });
+  }
+  try {
+    let existingApplication = await InternApplications.findOne({ clerkId });
+
+    if (existingApplication) {
+      // Check if the internship already exists
+      const internshipIndex = existingApplication.jobs.findIndex(
+        (internship) => internship.jobId === jobId
+      );
+
+      if (internshipIndex === -1) {
+        // If the internship does not exist, add it
+        existingApplication.jobs.push({
+          jobId: jobId,
+          status: "Accepted",
+        });
+      } else {
+        // If the internship exists, update the status
+        existingApplication.jobs[internshipIndex].status = "Accepted";
+      }
+
+      await existingApplication.save();
+      res.status(200).json(existingApplication);
+    } else {
+      // If there is no existing application, create a new one
+      const newApplication = new InternApplications({
+        clerkId,
+        jobs: [
+          {
+            jobId: jobId,
+            status: "Accepted",
+          },
+        ],
+      });
+      await newApplication.save();
+      res.status(201).json(newApplication);
+    }
+
+    // Add clerkId to internship.appliedPeople
+    const job = await Job.findById(jobId);
+    if (job) {
+      if (!job.selectedPeople.includes(clerkId)) {
+        job.selectedPeople.push(clerkId);
+      }
+      await job.save();
+    }
+  } catch (error) {
+    console.error("Error applying job:", error);
+    res.status(500).json({ message: error.message || "Failed to apply job" });
+  }
+});
+
+app.post("/reject-job", async (req, res) => {
+  const { clerkId, jobId } = req.body;
+  console.log("clerkId", clerkId, "jobId", jobId);
+  // return res.status(200).json({message:"Success"});
+  if (!clerkId || !jobId) {
+    return res.status(400).json({ message: "clerkId and jobId are required" });
+  }
+  try {
+    let existingApplication = await InternApplications.findOne({ clerkId });
+
+    if (existingApplication) {
+      // Check if the internship already exists
+      const internshipIndex = existingApplication.jobs.findIndex(
+        (internship) => internship.jobId === jobId
+      );
+
+      if (internshipIndex === -1) {
+        // If the internship does not exist, add it
+        existingApplication.jobs.push({
+          jobId: jobId,
+          status: "Rejected",
+        });
+      } else {
+        // If the internship exists, update the status
+        existingApplication.jobs[internshipIndex].status = "Rejected";
+      }
+
+      await existingApplication.save();
+      res.status(200).json(existingApplication);
+    } else {
+      // If there is no existing application, create a new one
+      const newApplication = new InternApplications({
+        clerkId,
+        jobs: [
+          {
+            jobId: jobId,
+            status: "Rejected",
+          },
+        ],
+      });
+      await newApplication.save();
+      res.status(201).json(newApplication);
+    }
+
+    // Add clerkId to internship.appliedPeople
+    const job = await Job.findById(jobId);
+    if (job) {
+      if (!job.appliedPeople.includes(clerkId)) {
+        job.appliedPeople.push(clerkId);
+      }
+      await job.save();
+    }
+  } catch (error) {
+    console.error("Error applying job:", error);
+    res.status(500).json({ message: error.message || "Failed to apply job" });
+  }
+});
 
 app.get("/fetch-user/:clerkId", async (req, res) => {
   const clerkId = req.params.clerkId;
@@ -509,8 +749,6 @@ app.get("/fetch-user/:clerkId", async (req, res) => {
     res.status(500).json({ message: error.message || "Failed to fetch user" });
   }
 });
-
-app.get("/fetch-all-internshipApplications", async (req, res) => {});
 
 app.listen(4000, () => {
   console.log("Server is running on port 4000");

@@ -28,14 +28,6 @@ import ModeToggle from "./ModeProvider"; // Adjust the path as per your project 
 import { ChevronDownIcon } from "@radix-ui/react-icons";
 import { Bell, Ellipsis } from "lucide-react";
 import axios from "axios";
-import {
-  Sheet,
-  SheetContent,
-  SheetDescription,
-  SheetHeader,
-  SheetTitle,
-  SheetTrigger,
-} from "@/components/ui/sheet";
 
 const Header = () => {
   const navigate = useNavigate();
@@ -43,15 +35,6 @@ const Header = () => {
   const [inputResume, setInputResume] = useState();
   const { isSignedIn, user, isLoaded } = useUser();
   const [toastSent, setToastSent] = useState(false);
-  useEffect(() => {
-    if (isSignedIn && isLoaded && !toastSent) {
-      toast(`Welcome to CareerQuest, ${user.username}`, {
-        action: { label: "Undo" },
-      });
-      console.log("user", user);
-      setToastSent(true);
-    }
-  }, [isSignedIn, isLoaded, user]);
 
   useEffect(() => {
     if (isLoaded && isSignedIn && user) {
