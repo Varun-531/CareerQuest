@@ -21,7 +21,7 @@ import {
   BreadcrumbSeparator,
 } from "@/components/ui/breadcrumb";
 import { Eye, SquareArrowOutUpRight } from "lucide-react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import {
   Sheet,
@@ -176,7 +176,7 @@ const Applications = () => {
               />
             </div>
           )}
-          <div className="p-7 flex justify-between">
+          <div className="md:p-7 p-3 md:flex md:space-y-0 space-y-4 justify-between">
             <Breadcrumb>
               <BreadcrumbList>
                 <BreadcrumbItem>
@@ -197,28 +197,28 @@ const Applications = () => {
             </Breadcrumb>
             <SideBar />
           </div>
-          <div className="md:p-10 pt-0 font-semibold text-3xl text-center">
+          <div className="md:p-1 pt-0 font-semibold md:text-3xl text-xl text-center">
             Your Applications
           </div>
           {internships.length > 0 && (
             <div className="md:p-10 pt-3 flex flex-col gap-2">
-              <h1 className="text-xl font-bold">Internship Applications</h1>
+              <h1 className="md:text-xl font-bold">Internship Applications</h1>
               <Table className="border rounded">
                 <TableHeader className="">
                   <TableRow className="">
-                    <TableHead className="text-black font-semibold text-lg p-2 w-[5vw]">
+                    <TableHead className="text-black font-semibold md:text-lg p-2 md:w-[5vw] w-fit">
                       Sl.no
                     </TableHead>
-                    <TableHead className="text-black font-semibold text-lg p-2 w-[25vw]">
+                    <TableHead className="text-black font-semibold md:text-lg p-2 md:w-[25vw]">
                       Internship Name
                     </TableHead>
-                    <TableHead className="text-black font-semibold text-lg p-2 w-[25vw]">
+                    <TableHead className="text-black font-semibold md:text-lg p-2 md:w-[25vw] w-fit">
                       Company Name
                     </TableHead>
-                    <TableHead className="text-black font-semibold text-lg p-2 w-[10vw]">
+                    <TableHead className="text-black font-semibold md:text-lg p-2 md:w-[10vw] w-fit ">
                       Location
                     </TableHead>
-                    <TableHead className="text-black font-semibold text-lg p-2 w-[15vw]">
+                    <TableHead className="text-black font-semibold md:text-lg p-2 md:w-[15vw] w-fit">
                       Application Status
                     </TableHead>
                   </TableRow>
@@ -228,10 +228,19 @@ const Applications = () => {
                     <TableRow key={index} className="h-10">
                       <TableCell className="">{index + 1}</TableCell>
                       <TableCell className="flex gap-1 items-center">
-                        {internshipDetails[internship._id]?.title}
+                        <div className="md:block hidden">
+                          {internshipDetails[internship._id]?.title}
+                        </div>
+                        <Link
+                          className="md:hidden"
+                          to={`/internships/${internship.internId}`}
+                        >
+                          {" "}
+                          {internshipDetails[internship._id]?.title}
+                        </Link>
                         <SquareArrowOutUpRight
-                          size={10}
-                          className="mt-1 text-sky-600 cursor-pointer"
+                          // size={10}
+                          className="hidden md:block mt-1 text-sky-600 cursor-pointer md:w-3 w-5"
                           onClick={() =>
                             navigate(`/internships/${internship.internId}`)
                           }
@@ -251,24 +260,24 @@ const Applications = () => {
             </div>
           )}
           {jobs.length > 0 && (
-            <div className="p-10 pt-3 flex flex-col gap-2">
-              <h1 className="text-xl font-bold">Job Applications</h1>
+            <div className="md:p-10 pt-3 flex flex-col gap-2">
+              <h1 className="md:text-xl font-bold">Job Applications</h1>
               <Table className="border rounded">
                 <TableHeader>
                   <TableRow>
-                    <TableHead className="text-black font-semibold text-lg p-2 w-[5vw]">
+                    <TableHead className="text-black font-semibold md:text-lg p-2 w-[5vw]">
                       Sl.no
                     </TableHead>
-                    <TableHead className="text-black font-semibold text-lg p-2 w-[25vw]">
+                    <TableHead className="text-black font-semibold md:text-lg p-2 w-[25vw]">
                       Job Name
                     </TableHead>
-                    <TableHead className="text-black font-semibold text-lg p-2 w-[25vw]">
+                    <TableHead className="text-black font-semibold md:text-lg p-2 w-[25vw]">
                       Company Name
                     </TableHead>
-                    <TableHead className="text-black font-semibold text-lg p-2 w-[10vw]">
+                    <TableHead className="text-black font-semibold md:text-lg p-2 w-[10vw]">
                       Location
                     </TableHead>
-                    <TableHead className="text-black font-semibold text-lg p-2 w-[15vw]">
+                    <TableHead className="text-black font-semibold md:text-lg p-2 w-[15vw]">
                       Application Status
                     </TableHead>
                   </TableRow>
@@ -278,10 +287,15 @@ const Applications = () => {
                     <TableRow key={index} className="h-10">
                       <TableCell className="">{index + 1}</TableCell>
                       <TableCell className="flex gap-1 items-center">
-                        {jobDetails[job._id]?.title}
+                        <div className="md:block hidden">
+                          {jobDetails[job._id]?.title}
+                        </div>
+                        <Link className="md:hidden" to={`/jobs/${job.jobId}`}>
+                          {jobDetails[job._id]?.title}
+                        </Link>
                         <SquareArrowOutUpRight
-                          size={10}
-                          className="mt-1 text-sky-600 cursor-pointer"
+                          // size={10}
+                          className="md:block hidden mt-1 text-sky-600 cursor-pointer md:size-3 size-5"
                           onClick={() => navigate(`/jobs/${job.jobId}`)}
                         />
                       </TableCell>

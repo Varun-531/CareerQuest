@@ -162,7 +162,7 @@ const InternshipDetails = () => {
           />
         </div>
       )}
-      <div className="p-7 flex justify-between items-center">
+      <div className="md:p-7 p-3 md:flex md:space-y-0 space-y-4 justify-between items-center">
         <Breadcrumb>
           <BreadcrumbList>
             <BreadcrumbItem>
@@ -193,7 +193,7 @@ const InternshipDetails = () => {
         <SideBar />
       </div>
 
-      <div className="p-10 px-20">
+      <div className="md:p-10 md:px-20 px-3">
         <h1 className="text-center font-semibold text-4xl">
           {internship.title} Internship
         </h1>
@@ -207,7 +207,7 @@ const InternshipDetails = () => {
               <MapPin strokeWidth={2} size={20} />
               {internship.location}
             </h1>
-            <div className="mt-4 flex gap-[6vw]">
+            <div className="md:mt-4 mt-2 flex flex-wrap md:flex-nowrap gap-[6vw]">
               <div className="flex flex-col items-baseline">
                 <h2 className="flex gap-1 text-sm items-center font-semibold text-gray-400">
                   <Play strokeWidth={2} size={15} />

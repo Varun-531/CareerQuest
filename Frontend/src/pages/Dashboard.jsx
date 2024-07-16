@@ -27,18 +27,18 @@ const Dashboard = () => {
         Trending on Career Quest
         <img src="/fire.png" alt="flame" className="h-10" />
       </h2>
-      <Slider className="py-10" />
-      <section id="internships" className=" py-10">
-        <h2 className="text-center text-xl font-semibold flex items-center gap-4 justify-center italic">
+      <Slider className="md:py-10" />
+      <section id="internships" className="md:py-10">
+        <h2 className="text-center text-2xl font-semibold flex items-center gap-4 justify-center italic">
           Latest Internships in CareerQuest
         </h2>
         <InternSlider className="py-10" type="Internship" />
       </section>
-      <section id="jobs" className="p-10">
+      <section id="jobs" className="md:p-10 p-5">
         <h2 className="text-center text-2xl font-semibold flex items-center gap-4 justify-center italic">
           Latest Jobs in CareerQuest
         </h2>
-        <InternSlider className="py-10" type="Job" />
+        <InternSlider className="md:py-10" type="Job" />
       </section>
     </div>
   );

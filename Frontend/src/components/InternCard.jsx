@@ -36,10 +36,10 @@ const InternCard = ({ type, internship }) => {
     <div>
       <Card className="md:w-[30vw] lg:w-[20vw] w-[70vw] h-fit group hover:scale-105 mt-10">
         <CardHeader>
-          <CardTitle className="truncate max-w-full">
+          <CardTitle className="truncate max-w-full font-semibold">
             {internship.title}
           </CardTitle>
-          <CardDescription className="truncate max-w-full">
+          <CardDescription className="truncate max-w-full font-semibold">
             {internship.companyName}
           </CardDescription>
         </CardHeader>

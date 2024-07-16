@@ -162,7 +162,7 @@ const JobDetail = () => {
           />
         </div>
       )}
-      <div className="p-7 flex justify-between items-center">
+      <div className="md:p-7 p-3 md:flex justify-between space-y-4 md:space-y-0 items-center">
         <Breadcrumb>
           <BreadcrumbList>
             <BreadcrumbItem>
@@ -193,8 +193,10 @@ const JobDetail = () => {
         <SideBar />
       </div>
 
-      <div className="p-10 px-20">
-        <h1 className="text-center font-semibold text-4xl">{job.title} job</h1>
+      <div className="md:p-10 md:px-20 p-3">
+        <h1 className="text-center font-semibold md:text-4xl text-xl">
+          {job.title} job
+        </h1>
         <div className="relative border-[1px] border-slate-300 mt-10 p-5 rounded-lg">
           <div>
             <h1 className="font-semibold text-lg ">{job.title}</h1>
@@ -203,7 +205,7 @@ const JobDetail = () => {
               <MapPin strokeWidth={2} size={20} />
               {job.location}
             </h1>
-            <div className="mt-4 flex gap-[6vw]">
+            <div className="mt-4 flex gap-[6vw] md:flex-nowrap flex-wrap">
               <div className="flex flex-col items-baseline">
                 <h2 className="flex gap-1 text-sm items-center font-semibold text-gray-400">
                   <Play strokeWidth={2} size={15} />

@@ -143,28 +143,36 @@ const SideBar = () => {
                   <p className="font-semibold flex flex-col gap-2 mt-2">
                     Existing Resume:{" "}
                     {existingResume.endsWith(".pdf") ? (
-                      <div className="relative">
-                        <div className="h-[202px] w-[143px] hover:bg-slate-800 absolute top-0 opacity-30 flex items-center justify-center">
-                          <TooltipProvider>
-                            <Tooltip>
-                              <TooltipTrigger>
-                                <Eye
-                                  className="text-white text-4xl cursor-pointer"
-                                  onClick={handleViewResume}
-                                />
-                              </TooltipTrigger>
-                              <TooltipContent>
-                                <p className="font-semibold">View</p>
-                              </TooltipContent>
-                            </Tooltip>
-                          </TooltipProvider>
+                      <>
+                        {" "}
+                        <div className="hidden md:block relative">
+                          <div className="h-[202px] w-[143px] hover:bg-slate-800 absolute top-0 opacity-30 flex items-center justify-center">
+                            <TooltipProvider>
+                              <Tooltip>
+                                <TooltipTrigger>
+                                  <Eye
+                                    className="text-white text-4xl cursor-pointer"
+                                    onClick={handleViewResume}
+                                  />
+                                </TooltipTrigger>
+                                <TooltipContent>
+                                  <p className="font-semibold">View</p>
+                                </TooltipContent>
+                              </Tooltip>
+                            </TooltipProvider>
+                          </div>
+                          <embed
+                            src={existingResume}
+                            className="h-[202px] w-[143px] cursor-pointer"
+                            style={{ overflow: "hidden", border: "none" }}
+                          />
                         </div>
-                        <embed
-                          src={existingResume}
-                          className="h-[202px] w-[143px] cursor-pointer"
-                          style={{ overflow: "hidden", border: "none" }}
-                        />
-                      </div>
+                        <div className="md:hidden">
+                          <Button variant="ghost" onClick={handleViewResume}>
+                            View Resume
+                          </Button>
+                        </div>
+                      </>
                     ) : (
                       <img
                         src={existingResume}

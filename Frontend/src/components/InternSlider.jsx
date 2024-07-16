@@ -90,7 +90,7 @@ const InternSlider = ({ type }) => {
   }, []);
 
   return (
-    <div className="flex items-center justify-center p-10">
+    <div className="flex items-center justify-center md:p-0">
       <Carousel
         opts={{
           align: "start",
