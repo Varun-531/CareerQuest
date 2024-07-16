@@ -22,7 +22,7 @@ const JobSlimCard = ({ props }) => {
       className="flex pr-2 items-center cursor-pointer"
       onClick={() => handleClick(props._id)}
     >
-      <div className="p-3 m-3 mt-0 rounded-sm shadow-md dark:bg-slate-800 group hover:scale-105 flex flex-col gap-1 w-[100%] relative">
+      <div className="p-3 m-3 mt-0 rounded-sm shadow-md dark:bg-gray-900 group hover:scale-105 flex flex-col gap-1 w-[100%] relative">
         <h2 className="text-lg font-medium">{props.title}</h2>
         <p className="text-sm text-gray-400 dark:text-gray-100 font-semibold">
           {props.companyName}
@@ -47,15 +47,15 @@ const JobSlimCard = ({ props }) => {
         </div>
         <div>
           <div className="hidden md:flex flex-row gap-5 items-center">
-            <div className="bg-green-200 text-black p-1 rounded w-fit">
-              <h1 className="flex gap-1 items-center text-xs font-semibold">
+            <div className="bg-green-200 dark:bg-green-900  text-black p-1 rounded w-fit">
+              <h1 className="flex gap-1 items-center text-xs font-semibold dark:text-white">
                 <History className="" size={15} strokeWidth={2} />{" "}
                 {format(props.createdAt)}
               </h1>
             </div>
             <div>
               {props.fresherJob && (
-                <h2 className="text-xs flex items-center font-semibold text-gray-500">
+                <h2 className="text-xs flex items-center font-semibold text-gray-500 dark:text-gray-300">
                   <Dot />
                   fresher job
                 </h2>

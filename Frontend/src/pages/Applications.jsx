@@ -206,19 +206,19 @@ const Applications = () => {
               <Table className="border rounded">
                 <TableHeader className="">
                   <TableRow className="">
-                    <TableHead className="text-black font-semibold md:text-lg p-2 md:w-[5vw] w-fit">
+                    <TableHead className="text-black dark:text-white font-semibold md:text-lg p-2 md:w-[5vw] w-fit">
                       Sl.no
                     </TableHead>
-                    <TableHead className="text-black font-semibold md:text-lg p-2 md:w-[25vw]">
+                    <TableHead className="text-black dark:text-white font-semibold md:text-lg p-2 md:w-[25vw]">
                       Internship Name
                     </TableHead>
-                    <TableHead className="text-black font-semibold md:text-lg p-2 md:w-[25vw] w-fit">
+                    <TableHead className="text-black dark:text-white font-semibold md:text-lg p-2 md:w-[25vw] w-fit">
                       Company Name
                     </TableHead>
-                    <TableHead className="text-black font-semibold md:text-lg p-2 md:w-[10vw] w-fit ">
+                    <TableHead className="text-black dark:text-white font-semibold md:text-lg p-2 md:w-[10vw] w-fit ">
                       Location
                     </TableHead>
-                    <TableHead className="text-black font-semibold md:text-lg p-2 md:w-[15vw] w-fit">
+                    <TableHead className="text-black dark:text-white font-semibold md:text-lg p-2 md:w-[15vw] w-fit">
                       Application Status
                     </TableHead>
                   </TableRow>
@@ -265,19 +265,19 @@ const Applications = () => {
               <Table className="border rounded">
                 <TableHeader>
                   <TableRow>
-                    <TableHead className="text-black font-semibold md:text-lg p-2 w-[5vw]">
+                    <TableHead className="text-black dark:text-white font-semibold md:text-lg p-2 w-[5vw]">
                       Sl.no
                     </TableHead>
-                    <TableHead className="text-black font-semibold md:text-lg p-2 w-[25vw]">
+                    <TableHead className="text-black dark:text-white font-semibold md:text-lg p-2 w-[25vw]">
                       Job Name
                     </TableHead>
-                    <TableHead className="text-black font-semibold md:text-lg p-2 w-[25vw]">
+                    <TableHead className="text-black dark:text-white font-semibold md:text-lg p-2 w-[25vw]">
                       Company Name
                     </TableHead>
-                    <TableHead className="text-black font-semibold md:text-lg p-2 w-[10vw]">
+                    <TableHead className="text-black dark:text-white font-semibold md:text-lg p-2 w-[10vw]">
                       Location
                     </TableHead>
-                    <TableHead className="text-black font-semibold md:text-lg p-2 w-[15vw]">
+                    <TableHead className="text-black dark:text-white font-semibold md:text-lg p-2 w-[15vw]">
                       Application Status
                     </TableHead>
                   </TableRow>

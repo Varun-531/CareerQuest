@@ -12,7 +12,7 @@ import { AspectRatio } from "@/components/ui/aspect-ratio";
 const CardItem = () => {
   return (
     <div>
-      <Card className="md:w-[40vw] lg:w-[25vw] w-[70vw] h-fit group hover:scale-105 mt-10">
+      <Card className="md:w-[40vw] lg:w-[25vw] w-[70vw] h-fit group hover:scale-105 mt-10 dark:bg-gray-900">
         <CardHeader>
           <CardTitle>Explore New Horizons</CardTitle>
           <CardDescription>Unlock the potential within you</CardDescription>

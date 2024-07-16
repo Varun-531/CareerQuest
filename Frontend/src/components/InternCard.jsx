@@ -34,7 +34,7 @@ const InternCard = ({ type, internship }) => {
 
   return (
     <div>
-      <Card className="md:w-[30vw] lg:w-[20vw] w-[70vw] h-fit group hover:scale-105 mt-10">
+      <Card className="md:w-[30vw] lg:w-[20vw] w-[70vw] h-fit group hover:scale-105 mt-10 dark:bg-gray-900">
         <CardHeader>
           <CardTitle className="truncate max-w-full font-semibold">
             {internship.title}

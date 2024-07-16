@@ -86,3 +86,10 @@ input::-webkit-inner-spin-button {
     @apply bg-background text-foreground;
   }
 }
+/* .cl-internal-1eekank {
+  color: white;
+} */
+
+.dark .cl-internal-1eekank {
+  color: white;
+}

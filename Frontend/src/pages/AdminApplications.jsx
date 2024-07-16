@@ -339,10 +339,12 @@ const AdminApplications = () => {
         </Breadcrumb>
       </div>
       <div className="px-10">
-        <h1 className="font-semibold text-3xl my-1">All Applications</h1>
+        <h1 className="font-semibold text-3xl my-4 text-center">
+          All Applications
+        </h1>
         <div>
           <div className="md:flex md:px-[15vw] gap-4">
-            <div className="md:w-[25vw]  shadow-lg dark:bg-slate-800 rounded-sm p-5 flex flex-col gap-2 h-fit md:sticky md:top-5">
+            <div className="md:w-[25vw]  shadow-lg dark:bg-gray-900 rounded-sm p-5 flex flex-col gap-2 h-fit md:sticky md:top-5">
               <h1 className="text-center font-semibold text-xl capitalize flex items-center justify-center gap-1">
                 <Filter size={22} className="text-slate-400" /> filters
               </h1>
@@ -418,7 +420,10 @@ const AdminApplications = () => {
             </div>
             <div>
               {filteredApplications.map((application, index) => (
-                <div key={index} className="mb-4 p-4 shadow-lg rounded-md">
+                <div
+                  key={index}
+                  className="mb-4 p-4 shadow-lg rounded-md dark:bg-gray-900"
+                >
                   <h2 className="font-semibold text-lg mb-2">
                     Application {index + 1}
                   </h2>
@@ -461,7 +466,7 @@ const AdminApplications = () => {
                       {application.internships.map((internship, idx) => (
                         <div
                           key={idx}
-                          className="p-4 mb-2 shadow-md flex items-center justify-between rounded-sm md:w-[40vw]"
+                          className="p-4 mb-2 shadow-md flex items-center justify-between rounded-sm md:w-[40vw] dark:bg-gray-950"
                         >
                           <div>
                             {/* <p>Intern ID: {internship.internId}</p> */}
@@ -512,7 +517,7 @@ const AdminApplications = () => {
                       {application.jobs.map((job, idx) => (
                         <div
                           key={idx}
-                          className="p-4 mb-4 border rounded shadow flex items-center justify-between md:w-[40vw]"
+                          className="p-4 mb-4 border rounded shadow flex items-center justify-between md:w-[40vw] dark:bg-gray-950"
                         >
                           <div>
                             {/* <p>Job ID: {job.jobId}</p> */}

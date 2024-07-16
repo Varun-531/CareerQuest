@@ -17,7 +17,7 @@ const Dashboard = () => {
     }
   }, [isSignedIn, isLoaded, user]);
   return (
-    <div>
+    <div className="">
       <div className="h-[15vh] md:h-[30vh] flex items-center justify-center pt-5">
         <h1 className="text-center text-3xl md:text-5xl font-semibold italic text-slate-800 dark:text-slate-300">
           Make your <span className="text-sky-600">ideal career</span> come true

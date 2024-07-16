@@ -42,10 +42,15 @@ const InternshipDetails = () => {
   const { id } = useParams();
   const [internship, setInternship] = useState(null);
   const [loading, setLoading] = useState(true);
+  const [isAdmin, setIsAdmin] = useState(false);
   const [error, setError] = useState(null);
   const { isSignedIn, user, isLoaded } = useUser();
   const [admin, setAdmin] = useState(false);
-
+  useEffect(() => {
+    if (isLoaded && isSignedIn && user) {
+      setIsAdmin(user.publicMetadata?.role === "admin");
+    }
+  }, [isLoaded, isSignedIn, user]);
   useEffect(() => {
     axios
       .get(`http://localhost:4000/fetch-internship/${id}`)
@@ -190,20 +195,20 @@ const InternshipDetails = () => {
             </BreadcrumbItem>
           </BreadcrumbList>
         </Breadcrumb>
-        <SideBar />
+        {!isAdmin && <SideBar />}
       </div>
 
       <div className="md:p-10 md:px-20 px-3">
         <h1 className="text-center font-semibold text-4xl">
           {internship.title} Internship
         </h1>
-        <div className="relative border-[1px] border-slate-300 mt-10 p-5 rounded-lg">
+        <div className="relative shadow dark:bg-gray-900  mt-10 p-5 rounded-lg">
           <div>
             <h1 className="font-semibold text-lg ">{internship.title}</h1>
             <h1 className="font-semibold text-gray-400 ">
               {internship.companyName}
             </h1>
-            <h1 className="mt-4 items-center flex font-semibold text-gray-600 text-sm gap-1">
+            <h1 className="mt-4 items-center flex font-semibold text-gray-600 dark:text-gray-400 text-sm gap-1">
               <MapPin strokeWidth={2} size={20} />
               {internship.location}
             </h1>
@@ -213,7 +218,7 @@ const InternshipDetails = () => {
                   <Play strokeWidth={2} size={15} />
                   Start Date
                 </h2>
-                <p className="text-gray-600 text-sm font-semibold">
+                <p className="text-gray-600 dark:text-gray-100 text-sm font-semibold">
                   {formatDate(internship.startDate)}
                 </p>
               </div>
@@ -222,16 +227,16 @@ const InternshipDetails = () => {
                   <Calendar strokeWidth={2} size={15} />
                   Duration
                 </h2>
-                <p className="text-gray-600 text-sm font-semibold">
+                <p className="text-gray-600 text-sm font-semibold dark:text-gray-100 ">
                   {internship.duration} Months
                 </p>
               </div>
               <div className="flex flex-col items-baseline">
-                <h2 className="flex gap-1 text-sm items-center font-semibold text-gray-400">
+                <h2 className="flex gap-1 text-sm items-center font-semibold text-gray-400 ">
                   <Banknote strokeWidth={2} size={15} />
                   Stipend
                 </h2>
-                <p className="text-gray-600 text-sm font-semibold">
+                <p className="text-gray-600 text-sm font-semibold dark:text-gray-100 ">
                   {formatSalary(internship.stipend)} Rupees
                 </p>
               </div>
@@ -240,7 +245,7 @@ const InternshipDetails = () => {
                   <Hourglass strokeWidth={2} size={15} />
                   Apply By
                 </h2>
-                <p className="text-gray-600 text-sm font-semibold">
+                <p className="text-gray-600 text-sm font-semibold dark:text-gray-100 ">
                   {formatDate(internship.applyBy)}
                 </p>
               </div>
@@ -264,7 +269,7 @@ const InternshipDetails = () => {
             </div>
             <div className="mt-5">
               <h1 className="font-semibold text-lg ">About Internship</h1>
-              <p className="text-gray-600 text-sm text-justify">
+              <p className="text-gray-600 text-sm text-justify dark:text-gray-400 ">
                 {internship.aboutInternship}
               </p>
             </div>
@@ -274,7 +279,7 @@ const InternshipDetails = () => {
                 {internship.perks.map((perk, index) => (
                   <h1
                     key={index}
-                    className="bg-slate-200 w-fit p-1 m-1 rounded-lg font-semibold text-sm text-gray-700"
+                    className="bg-slate-200 w-fit p-1 m-1 rounded-lg font-semibold text-sm text-gray-700 "
                     text={perk}
                   >
                     {perk}
@@ -290,7 +295,7 @@ const InternshipDetails = () => {
                   {internship.whoCanApply.map((perk, index) => (
                     <li
                       key={index}
-                      className="mb-1 rounded-lg ml-5 text-gray-800"
+                      className="mb-1 rounded-lg ml-5 text-gray-800 dark:text-gray-400 "
                     >
                       {perk}
                     </li>
@@ -311,7 +316,7 @@ const InternshipDetails = () => {
                 About {internship.companyName}
               </h1>
               <div className="flex flex-wrap gap-5">
-                <p className="text-sm text-justify text-gray-600">
+                <p className="text-sm text-justify text-gray-600 dark:text-gray-400 ">
                   {internship.aboutCompany}
                 </p>
               </div>
@@ -325,7 +330,10 @@ const InternshipDetails = () => {
                 <>
                   {applied ? (
                     <>
-                      <Button disabled className="bg-black text-white text-sm">
+                      <Button
+                        disabled
+                        className="dark:bg-slate-200 dark:text-black dark: bg-black text-white text-sm"
+                      >
                         Applied
                       </Button>
                     </>

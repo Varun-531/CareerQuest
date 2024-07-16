@@ -15,9 +15,8 @@ const Home = () => {
   return (
     <div className="relative h-[100vh] flex justify-center items-center overflow-hidden">
       <GridPattern className="absolute inset-0 z-0" />
-      <div className="relative z-10 flex items-center justify-center flex-col m-auto bg-white bg-opacity-80 p-6 rounded-lg shadow-md">
-        <h1>Home</h1>
-        <p>Welcome to the home page!</p>
+      <div className="relative z-10 flex items-center justify-center flex-col m-auto bg-white dark:bg-gray-900 bg-opacity-80 p-6 rounded-lg shadow-md">
+        <p>Welcome to the Career Quest!</p>
         <Button className="mt-3" onClick={() => navigate("/dashboard")}>
           Get Started
         </Button>

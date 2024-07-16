@@ -197,11 +197,11 @@ const JobDetail = () => {
         <h1 className="text-center font-semibold md:text-4xl text-xl">
           {job.title} job
         </h1>
-        <div className="relative border-[1px] border-slate-300 mt-10 p-5 rounded-lg">
+        <div className="relative dark:bg-gray-900 shadow mt-10 p-5 rounded-lg">
           <div>
             <h1 className="font-semibold text-lg ">{job.title}</h1>
             <h1 className="font-semibold text-gray-400 ">{job.companyName}</h1>
-            <h1 className="mt-4 items-center flex font-semibold text-gray-600 text-sm gap-1">
+            <h1 className="mt-4 items-center flex font-semibold text-gray-600 text-sm gap-1 dark:text-gray-100 ">
               <MapPin strokeWidth={2} size={20} />
               {job.location}
             </h1>
@@ -211,7 +211,7 @@ const JobDetail = () => {
                   <Play strokeWidth={2} size={15} />
                   Start Date
                 </h2>
-                <p className="text-gray-600 text-sm font-semibold">
+                <p className="text-gray-600 text-sm font-semibold dark:text-gray-200 ">
                   {formatDate(job.startDate)}
                 </p>
               </div>
@@ -229,7 +229,7 @@ const JobDetail = () => {
                   <Banknote strokeWidth={2} size={15} />
                   Salary{job.ctc && <span> (CTC)</span>}
                 </h2>
-                <p className="text-gray-600 text-sm font-semibold">
+                <p className="text-gray-600 text-sm font-semibold dark:text-gray-200 ">
                   {formatSalary(job.salary)} Rupees
                 </p>
               </div>
@@ -238,7 +238,7 @@ const JobDetail = () => {
                   <Hourglass strokeWidth={2} size={15} />
                   Apply By
                 </h2>
-                <p className="text-gray-600 text-sm font-semibold">
+                <p className="text-gray-600 text-sm font-semibold dark:text-gray-200 ">
                   {formatDate(job.applyBy)}
                 </p>
               </div>
@@ -287,7 +287,7 @@ const JobDetail = () => {
                   {job.whoCanApply.map((item, index) => (
                     <li
                       key={index}
-                      className="mb-1 rounded-lg ml-5 text-gray-800"
+                      className="mb-1 rounded-lg ml-5 text-gray-800 dark:text-gray-400 "
                     >
                       {item}
                     </li>
@@ -308,7 +308,7 @@ const JobDetail = () => {
                 About {job.companyName}
               </h1>
               <div className="flex flex-wrap gap-5">
-                <p className="text-sm text-justify text-gray-600">
+                <p className="text-sm text-justify text-gray-600 dark:text-gray-400 ">
                   {job.aboutCompany}
                 </p>
               </div>

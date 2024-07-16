@@ -48,7 +48,7 @@ const Header2 = () => {
     }
   }, [isLoaded, isSignedIn, user]);
   return (
-    <div className="bg-slate-200 shadow-sm">
+    <div className="bg-slate-200 shadow-sm dark:bg-slate-800">
       <div className="p-3 flex justify-between items-center">
         <div className="flex items-center gap-7 font-semibold">
           <div
@@ -118,10 +118,10 @@ const Header2 = () => {
                 <>
                   <Button>
                     <SignedOut>
-                      <SignInButton>Candidate Sign-up</SignInButton>
+                      <SignInButton>Sign-up/Sign-in</SignInButton>
                     </SignedOut>
                   </Button>
-                  <Button>Employer Sign-up</Button>
+                  {/* <Button>Employer Sign-up</Button> */}
                 </>
               )}
             </div>
@@ -168,10 +168,10 @@ const Header2 = () => {
                       <>
                         <Button>
                           <SignedOut>
-                            <SignInButton>Candidate Sign-up</SignInButton>
+                            <SignInButton>Sign-up/Sign-in</SignInButton>
                           </SignedOut>
                         </Button>
-                        <Button>Employer Sign-up</Button>
+                        {/* <Button>Employer Sign-up</Button> */}
                       </>
                     )}
                   </div>

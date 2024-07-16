@@ -120,7 +120,7 @@ const AllJobs = () => {
           {filteredJobs.length} jobs available
         </h2>
         <div className="md:flex gap-3 justify-center p-4">
-          <div className="md:w-[25vw] shadow-lg dark:bg-slate-800 rounded-sm p-5 flex flex-col gap-2 h-fit md:sticky md:top-10">
+          <div className="md:w-[25vw] shadow-lg dark:bg-gray-900 rounded-sm p-5 flex flex-col gap-2 h-fit md:sticky md:top-10">
             <h1 className="text-center font-semibold text-xl capitalize flex items-center justify-center gap-1">
               <Filter size={22} className="text-slate-400" /> filters
             </h1>
