@@ -59,7 +59,7 @@ const Applications = () => {
     if (isSignedIn && isLoaded && user?.id) {
       try {
         const res = await axios.get(
-          `http://localhost:4000/resume-present/${user.id}`
+          `${import.meta.env.VITE_BACKEND_API}/resume-present/${user.id}`
         );
         if (res.status === 200) {
           setIsResumePresent(true);
@@ -81,7 +81,7 @@ const Applications = () => {
         if (isSignedIn && isLoaded && user?.id) {
           setLoading(true);
           const res = await axios.get(
-            `http://localhost:4000/fetch-applications/${user.id}`
+            `${import.meta.env.VITE_BACKEND_API}/fetch-applications/${user.id}`
           );
           setInternships(res.data.internships);
           setJobs(res.data.jobs);
@@ -90,7 +90,9 @@ const Applications = () => {
           await Promise.all(
             res.data.internships.map(async (internship) => {
               const details = await axios.get(
-                `http://localhost:4000/fetch-internship/${internship.internId}`
+                `${import.meta.env.VITE_BACKEND_API}/fetch-internship/${
+                  internship.internId
+                }`
               );
               setInternshipDetails((prevDetails) => ({
                 ...prevDetails,
@@ -101,7 +103,7 @@ const Applications = () => {
           await Promise.all(
             res.data.jobs.map(async (job) => {
               const details = await axios.get(
-                `http://localhost:4000/fetch-job/${job.jobId}`
+                `${import.meta.env.VITE_BACKEND_API}/fetch-job/${job.jobId}`
               );
               setJobDetails((prevDetails) => ({
                 ...prevDetails,
@@ -137,11 +139,15 @@ const Applications = () => {
     formData.append("clerkId", user.id);
 
     try {
-      await axios.post("http://localhost:4000/add-resume", formData, {
-        headers: {
-          "Content-Type": "multipart/form-data",
-        },
-      });
+      await axios.post(
+        `${import.meta.env.VITE_BACKEND_API}/add-resume`,
+        formData,
+        {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        }
+      );
       console.log("Resume submitted");
       toast.success("Resume uploaded successfully.");
       setLoading(false);

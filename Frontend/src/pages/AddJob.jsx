@@ -73,7 +73,7 @@ const AddJob = () => {
 
     try {
       const response = await axios.post(
-        "http://localhost:4000/add-job",
+        `${import.meta.env.VITE_BACKEND_API}/add-job`,
         formData,
         {
           headers: {

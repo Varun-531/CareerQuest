@@ -30,7 +30,7 @@ const AllJobs = () => {
   useEffect(() => {
     setLoading(true);
     axios
-      .get("http://localhost:4000/all-jobs")
+      .get(`${import.meta.env.VITE_BACKEND_API}/all-jobs`)
       .then((res) => {
         console.log("Fetched jobs:", res.data);
         setJobs(res.data);

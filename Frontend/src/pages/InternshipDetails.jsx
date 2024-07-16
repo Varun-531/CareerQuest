@@ -53,7 +53,7 @@ const InternshipDetails = () => {
   }, [isLoaded, isSignedIn, user]);
   useEffect(() => {
     axios
-      .get(`http://localhost:4000/fetch-internship/${id}`)
+      .get(`${import.meta.env.VITE_BACKEND_API}/fetch-internship/${id}`)
       .then((res) => {
         setInternship(res.data);
         setLoading(false);
@@ -71,7 +71,7 @@ const InternshipDetails = () => {
   useEffect(() => {
     if (isSignedIn && isLoaded) {
       axios
-        .get(`http://localhost:4000/resume-present/${user.id}`)
+        .get(`${import.meta.env.VITE_BACKEND_API}/resume-present/${user.id}`)
         .then((res) => {
           if (res.status === 200) {
             setResume(true);
@@ -88,7 +88,7 @@ const InternshipDetails = () => {
       console.log("internId", id);
       console.log("clerkId", user.id);
       axios
-        .post("http://localhost:4000/check-intern-application", {
+        .post(`${import.meta.env.VITE_BACKEND_API}/check-intern-application`, {
           internId: id,
           clerkId: user.id,
         })
@@ -125,7 +125,7 @@ const InternshipDetails = () => {
     if (isSignedIn) {
       setLoading(true);
       axios
-        .post("http://localhost:4000/apply-internship", {
+        .post(import.meta.env.VITE_BACKEND_API + "/apply-internship", {
           internId: internship._id,
           clerkId: user.id,
         })

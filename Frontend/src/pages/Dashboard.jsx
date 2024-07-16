@@ -23,11 +23,11 @@ const Dashboard = () => {
           Make your <span className="text-sky-600">ideal career</span> come true
         </h1>
       </div>
-      <h2 className="text-center text-xl font-semibold flex items-center gap-4 justify-center italic">
+      {/* <h2 className="text-center text-xl font-semibold flex items-center gap-4 justify-center italic">
         Trending on Career Quest
         <img src="/fire.png" alt="flame" className="h-10" />
-      </h2>
-      <Slider className="md:py-10" />
+      </h2> */}
+      {/* <Slider className="md:py-10" /> */}
       <section id="internships" className="md:py-10">
         <h2 className="text-center text-2xl font-semibold flex items-center gap-4 justify-center italic">
           Latest Internships in CareerQuest

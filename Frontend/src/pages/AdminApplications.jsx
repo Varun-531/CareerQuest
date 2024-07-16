@@ -44,7 +44,7 @@ const AdminApplications = () => {
     const fetchUserData = async (clerkId) => {
       try {
         const response = await axios.get(
-          `http://localhost:4000/fetch-user/${clerkId}`
+          `${import.meta.env.VITE_BACKEND_API}/fetch-user/${clerkId}`
         );
         return response.data;
       } catch (error) {
@@ -56,7 +56,7 @@ const AdminApplications = () => {
     const fetchApplicationData = async () => {
       try {
         const res = await axios.get(
-          "http://localhost:4000/fetch-all-applications"
+          `${import.meta.env.VITE_BACKEND_API}/fetch-all-applications`
         );
         setApplications(res.data);
 
@@ -64,7 +64,9 @@ const AdminApplications = () => {
         const internshipPromises = res.data.flatMap((application) =>
           application.internships.map((internship) =>
             axios.get(
-              `http://localhost:4000/fetch-internship/${internship.internId}`
+              `${import.meta.env.VITE_BACKEND_API}/fetch-internship/${
+                internship.internId
+              }`
             )
           )
         );
@@ -82,7 +84,9 @@ const AdminApplications = () => {
         // Fetch data for jobs
         const jobPromises = res.data.flatMap((application) =>
           application.jobs.map((job) =>
-            axios.get(`http://localhost:4000/fetch-job/${job.jobId}`)
+            axios.get(
+              `${import.meta.env.VITE_BACKEND_API}/fetch-job/${job.jobId}`
+            )
           )
         );
         const jobResponses = await Promise.all(jobPromises);
@@ -142,7 +146,7 @@ const AdminApplications = () => {
   const fetchResume = async (clerkId) => {
     try {
       const response = await axios.get(
-        `http://localhost:4000/resume-present/${clerkId}`
+        `${import.meta.env.VITE_BACKEND_API}/resume-present/${clerkId}`
       );
       // Assuming the response contains the resume data to display or download
       console.log(response.data.resume); // Handle the response data to display or download the resume
@@ -213,10 +217,13 @@ const AdminApplications = () => {
   const rejectJob = (jobId, clerkId) => async () => {
     setLoading(true);
     try {
-      const res = await axios.post("http://localhost:4000/reject-job", {
-        jobId,
-        clerkId,
-      });
+      const res = await axios.post(
+        `${import.meta.env.VITE_BACKEND_API}/reject-job`,
+        {
+          jobId,
+          clerkId,
+        }
+      );
       setLoading(false);
 
       // Update job status in local state
@@ -239,7 +246,7 @@ const AdminApplications = () => {
     setLoading(true);
     try {
       const res = await axios.post(
-        "http://localhost:4000/accept-job",
+        `${import.meta.env.VITE_BACKEND_API}/accept-job`,
         {
           jobId,
           clerkId,
@@ -274,10 +281,13 @@ const AdminApplications = () => {
   const rejectInternship = (internId, clerkId) => async () => {
     setLoading(true);
     try {
-      const res = await axios.post("http://localhost:4000/reject-internship", {
-        internId,
-        clerkId,
-      });
+      const res = await axios.post(
+        `${import.meta.env.VITE_BACKEND_API}/reject-internship`,
+        {
+          internId,
+          clerkId,
+        }
+      );
       setLoading(false);
 
       // Update internship status in local state
@@ -299,10 +309,13 @@ const AdminApplications = () => {
   const acceptInternship = (internId, clerkId) => async () => {
     setLoading(true);
     try {
-      const res = await axios.post("http://localhost:4000/accept-internship", {
-        internId,
-        clerkId,
-      });
+      const res = await axios.post(
+        `${import.meta.env.VITE_BACKEND_API}/accept-internship`,
+        {
+          internId,
+          clerkId,
+        }
+      );
       setLoading(false);
 
       // Update internship status in local state

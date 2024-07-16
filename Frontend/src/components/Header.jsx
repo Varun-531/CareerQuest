@@ -48,7 +48,7 @@ const Header = () => {
   useEffect(() => {
     if (isSignedIn) {
       axios
-        .get(`http://localhost:4000/resume-present/${user.id}`)
+        .get(`${import.meta.env.VITE_BACKEND_API}/resume-present/${user.id}`)
         .then((res) => {
           setResume(res.data);
           setResumePresent(true);
@@ -78,7 +78,7 @@ const Header = () => {
 
     axios
       .post(
-        `http://localhost:4000/add-resume`,
+        `${import.meta.env.VITE_BACKEND_API}/add-resume`,
         { clerkId: user.id, resume: inputResume },
         {
           headers: {

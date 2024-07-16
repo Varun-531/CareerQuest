@@ -50,7 +50,7 @@ const JobDetail = () => {
   useEffect(() => {
     if (isSignedIn && isLoaded) {
       axios
-        .get(`http://localhost:4000/resume-present/${user.id}`)
+        .get(`${import.meta.env.VITE_BACKEND_API}/resume-present/${user.id}`)
         .then((res) => {
           if (res.status === 200) {
             setResume(true);
@@ -67,7 +67,7 @@ const JobDetail = () => {
       console.log("jobId", id);
       console.log("clerkId", user.id);
       axios
-        .post("http://localhost:4000/check-job-application", {
+        .post(`${import.meta.env.VITE_BACKEND_API}/check-job-application`, {
           jobId: id,
           clerkId: user.id,
         })
@@ -87,7 +87,7 @@ const JobDetail = () => {
 
   useEffect(() => {
     axios
-      .get(`http://localhost:4000/fetch-job/${id}`)
+      .get(`${import.meta.env.VITE_BACKEND_API}/fetch-job/${id}`)
       .then((res) => {
         setJob(res.data);
         setLoading(false);
@@ -121,7 +121,7 @@ const JobDetail = () => {
       // console.log("clerkId", user.id);
       setLoading(true);
       axios
-        .post("http://localhost:4000/apply-job", {
+        .post(`${import.meta.env.VITE_BACKEND_API}/apply-job`, {
           jobId: job._id,
           clerkId: user.id,
         })

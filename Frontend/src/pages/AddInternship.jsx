@@ -78,7 +78,7 @@ const AddInternship = () => {
 
     try {
       const response = await axios.post(
-        "http://localhost:4000/add-Internship",
+        `${import.meta.env.VITE_BACKEND_API}/add-Internship`,
         formData,
         {
           headers: {
@@ -128,7 +128,7 @@ const AddInternship = () => {
           />
         </div>
       )}
-      <div className="px-5 md:px-10 md:py-0 py-5">
+      <div className="px-5 md:px-10 md:py-0 py-5 z-[0]">
         <div className="md:flex md:p-5 md:justify-between md:relative">
           <div className="md:w-[60vw] rounded">
             <h1 className="text-2xl md:text-4xl font-semibold">

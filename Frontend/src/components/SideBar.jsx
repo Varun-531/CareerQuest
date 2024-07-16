@@ -56,7 +56,7 @@ const SideBar = () => {
     if (isSignedIn && isLoaded && user?.id) {
       try {
         const res = await axios.get(
-          `http://localhost:4000/resume-present/${user.id}`
+          `${import.meta.env.VITE_BACKEND_API}/resume-present/${user.id}`
         );
         if (res.status === 200) {
           setIsResumePresent(true);
@@ -89,11 +89,15 @@ const SideBar = () => {
     formData.append("clerkId", user.id);
 
     try {
-      await axios.post("http://localhost:4000/add-resume", formData, {
-        headers: {
-          "Content-Type": "multipart/form-data",
-        },
-      });
+      await axios.post(
+        `${import.meta.env.VITE_BACKEND_API}/add-resume`,
+        formData,
+        {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        }
+      );
       console.log("Resume submitted");
       toast.success("Resume uploaded successfully.");
       setLoading(false);

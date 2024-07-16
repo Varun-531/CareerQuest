@@ -70,61 +70,66 @@ const verifyToken = async (req, res, next) => {
   }
 };
 
-app.post("/add-internship", upload.single("companyLogo"), async (req, res) => {
-  const {
-    title,
-    startDate,
-    companyName,
-    stipend,
-    job,
-    openings,
-    location,
-    duration,
-    applyBy,
-    aboutInternship,
-    perks = "",
-    skills = "",
-    whoCanApply,
-    aboutCompany,
-  } = req.body;
-
-  const companyLogo = req.file ? req.file.path : null;
-
-  try {
-    let companyLogoUrl = null;
-    if (companyLogo) {
-      const result = await cloudinary.uploader.upload(companyLogo);
-      companyLogoUrl = result.url;
-      fs.unlinkSync(companyLogo); // Delete file after upload
-    }
-
-    const newInternship = new Internship({
+app.post(
+  "/add-internship",
+  verifyToken,
+  upload.single("companyLogo"),
+  async (req, res) => {
+    const {
       title,
       startDate,
       companyName,
-      companyLogo: companyLogoUrl,
       stipend,
-      location,
-      openings,
-      duration,
       job,
+      openings,
+      location,
+      duration,
       applyBy,
       aboutInternship,
-      perks: perks.split("\n"),
-      skills: skills.split("\n"),
-      whoCanApply: whoCanApply.split("\n"),
+      perks = "",
+      skills = "",
+      whoCanApply,
       aboutCompany,
-    });
+    } = req.body;
 
-    await newInternship.save();
-    res.status(201).json(newInternship);
-  } catch (error) {
-    console.error("Error adding internship:", error);
-    res
-      .status(500)
-      .json({ message: error.message || "Failed to add internship" });
+    const companyLogo = req.file ? req.file.path : null;
+
+    try {
+      let companyLogoUrl = null;
+      if (companyLogo) {
+        const result = await cloudinary.uploader.upload(companyLogo);
+        companyLogoUrl = result.url;
+        fs.unlinkSync(companyLogo); // Delete file after upload
+      }
+
+      const newInternship = new Internship({
+        title,
+        startDate,
+        companyName,
+        companyLogo: companyLogoUrl,
+        stipend,
+        location,
+        openings,
+        duration,
+        job,
+        applyBy,
+        aboutInternship,
+        perks: perks.split("\n"),
+        skills: skills.split("\n"),
+        whoCanApply: whoCanApply.split("\n"),
+        aboutCompany,
+      });
+
+      await newInternship.save();
+      res.status(201).json(newInternship);
+    } catch (error) {
+      console.error("Error adding internship:", error);
+      res
+        .status(500)
+        .json({ message: error.message || "Failed to add internship" });
+    }
   }
-});
+);
 
 app.post("/check-intern-application", async (req, res) => {
   const { clerkId, internId } = req.body;

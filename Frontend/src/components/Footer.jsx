@@ -91,7 +91,7 @@ const Footer = () => {
 
   return (
     <div>
-      <footer className="bg-slate-100 dark:bg-slate-800 mt-5">
+      <footer className="bg-slate-100 dark:bg-slate-800 mt-5 z-[1]">
         <div className="relative mx-auto max-w-screen-xl px-4 py-4 sm:px-6 lg:px-8 lg:pt-10">
           <div className="lg:flex lg:items-end lg:justify-between">
             <div>
