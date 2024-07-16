@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import { useCookies } from "react-cookie";
 import { Label } from "@/components/ui/label";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import {
@@ -21,6 +22,7 @@ import {
 } from "@/components/ui/breadcrumb";
 import { Check, Filter, X } from "lucide-react";
 import { HashLoader } from "react-spinners";
+import { useAuth } from "@clerk/clerk-react";
 
 const AdminApplications = () => {
   const [applications, setApplications] = useState([]);
@@ -28,6 +30,8 @@ const AdminApplications = () => {
   const [jobData, setJobData] = useState({});
   const [userData, setUserData] = useState({});
   const [loading, setLoading] = useState(false);
+  const [cookies, setCookie, removeCookie] = useCookies(["__session", "jwt"]);
+  const { getToken } = useAuth();
   const [filters, setFilters] = useState({
     title: "",
     username: "",
@@ -234,10 +238,21 @@ const AdminApplications = () => {
   const acceptJob = (jobId, clerkId) => async () => {
     setLoading(true);
     try {
-      const res = await axios.post("http://localhost:4000/accept-job", {
-        jobId,
-        clerkId,
-      });
+      const res = await axios.post(
+        "http://localhost:4000/accept-job",
+        {
+          jobId,
+          clerkId,
+        },
+        {
+          headers: {
+            "Content-Type": "application/json",
+            // Authorization: `Bearer ${await getToken()}`,
+            Authorization: `Bearer ${import.meta.env.JWT_SECRET}`,
+            // Authorization: `Bearer ${cookies.jwt}`,
+          },
+        }
+      );
       setLoading(false);
 
       // Update job status in local state
