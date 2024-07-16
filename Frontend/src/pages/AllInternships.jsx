@@ -311,7 +311,8 @@ const AllInternships = () => {
             <BreadcrumbItem>
               <BreadcrumbLink
                 className="font-semibold cursor-pointer"
-                href="/dashboard"
+                // href="/dashboard"
+                onClick={() => navigate("/dashboard")}
               >
                 Home
               </BreadcrumbLink>
