@@ -216,10 +216,8 @@ import { Checkbox } from "@/components/ui/checkbox";
 import { Label } from "@/components/ui/label";
 import { Slider } from "@/components/ui/slider";
 import { Button } from "@/components/ui/button";
-import { useNavigate } from "react-router-dom";
 
 const AllInternships = () => {
-  const navigate = useNavigate();
   const [internships, setInternships] = useState([]);
   const [filteredInternships, setFilteredInternships] = useState([]);
   const [error, setError] = useState(null);
@@ -313,9 +311,9 @@ const AllInternships = () => {
             <BreadcrumbItem>
               <BreadcrumbLink
                 className="font-semibold cursor-pointer"
-                // href="/dashboard"
+                href="/dashboard"
               >
-                <div onClick={() => navigate("/internships")}>Home</div>
+                Home
               </BreadcrumbLink>
             </BreadcrumbItem>
             <BreadcrumbSeparator />

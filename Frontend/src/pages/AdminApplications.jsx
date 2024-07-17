@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useMemo } from "react";
 import axios from "axios";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -46,6 +46,7 @@ const AdminApplications = () => {
         const response = await axios.get(
           `${import.meta.env.VITE_BACKEND_API}/fetch-user/${clerkId}`
         );
+        console.log(`User data for ${clerkId}:`, response.data); // Debugging line
         return response.data;
       } catch (error) {
         console.error(`Error fetching user ${clerkId}:`, error);
@@ -58,6 +59,7 @@ const AdminApplications = () => {
         const res = await axios.get(
           `${import.meta.env.VITE_BACKEND_API}/fetch-all-applications`
         );
+        console.log("Applications data:", res.data);
         setApplications(res.data);
 
         // Fetch data for internships
@@ -79,6 +81,7 @@ const AdminApplications = () => {
             appliedPeople: response.data.appliedPeople,
           };
         });
+        console.log("Internship data:", internshipData); // Debugging line
         setInternshipData(internshipData);
 
         // Fetch data for jobs
@@ -98,9 +101,9 @@ const AdminApplications = () => {
             appliedPeople: response.data.appliedPeople,
           };
         });
+        console.log("Job data:", jobData);
         setJobData(jobData);
 
-        // Fetch usernames, emails, and imageUrls for applied users
         const allClerkIds = res.data.map((application) => application.clerkId);
         const uniqueClerkIds = [...new Set(allClerkIds)];
         const userPromises = uniqueClerkIds.map((clerkId) =>
@@ -117,6 +120,7 @@ const AdminApplications = () => {
             };
           }
         });
+        console.log("User data:", userData); // Debugging line
         setUserData(userData);
       } catch (err) {
         console.log(err);
@@ -213,7 +217,6 @@ const AdminApplications = () => {
       (application) =>
         application.internships.length > 0 || application.jobs.length > 0
     );
-
   const rejectJob = (jobId, clerkId) => async () => {
     setLoading(true);
     try {
@@ -235,6 +238,9 @@ const AdminApplications = () => {
         },
       }));
 
+      // Optionally, you can also fetch updated application data here
+      fetchApplicationData();
+
       console.log(res);
     } catch (err) {
       setLoading(false);
@@ -254,9 +260,7 @@ const AdminApplications = () => {
         {
           headers: {
             "Content-Type": "application/json",
-            // Authorization: `Bearer ${await getToken()}`,
             Authorization: `Bearer ${import.meta.env.JWT_SECRET}`,
-            // Authorization: `Bearer ${cookies.jwt}`,
           },
         }
       );
@@ -270,6 +274,9 @@ const AdminApplications = () => {
           status: "Accepted", // Assuming your API returns updated job data
         },
       }));
+
+      // Optionally, you can also fetch updated application data here
+      fetchApplicationData();
 
       console.log(res);
     } catch (err) {
@@ -299,6 +306,9 @@ const AdminApplications = () => {
         },
       }));
 
+      // Optionally, you can also fetch updated application data here
+      fetchApplicationData();
+
       console.log(res);
     } catch (err) {
       setLoading(false);
@@ -326,6 +336,9 @@ const AdminApplications = () => {
           status: "Accepted", // Assuming your API returns updated internship data
         },
       }));
+
+      // Optionally, you can also fetch updated application data here
+      fetchApplicationData();
 
       console.log(res);
     } catch (err) {

@@ -72,7 +72,7 @@ const verifyToken = async (req, res, next) => {
 
 app.post(
   "/add-internship",
-  verifyToken,
+  // verifyToken,
   upload.single("companyLogo"),
   async (req, res) => {
     const {
@@ -402,6 +402,7 @@ app.get("/fetch-internship/:id", async (req, res) => {
 
 app.get("/fetch-job/:id", async (req, res) => {
   const id = req.params.id;
+  console.log("Job ID:", id);
   try {
     const job = await Job.findById(id).sort({ createdAt: -1 });
     res.status(200).json(job);
