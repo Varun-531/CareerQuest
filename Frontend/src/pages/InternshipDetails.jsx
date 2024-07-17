@@ -145,14 +145,18 @@ const InternshipDetails = () => {
     }
   };
   const openSideBar = () => {
-    setTimeout(() => {
-      const resumeElement = document.getElementById("resume");
-      if (resumeElement) {
-        resumeElement.click();
-      } else {
-        console.error("Resume element not found");
-      }
-    }, 100); // Adjust the delay time as needed
+    if (SignedIn) {
+      setTimeout(() => {
+        const resumeElement = document.getElementById("resume");
+        if (resumeElement) {
+          resumeElement.click();
+        } else {
+          console.error("Resume element not found");
+        }
+      }, 100);
+    } else {
+      toast.eror("Please sign in to upload resume");
+    }
   };
 
   return (
