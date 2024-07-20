@@ -343,50 +343,51 @@ const InternshipDetails = () => {
                     </>
                   ) : (
                     <>
-                      {/* <Button className="text-base p-5" onClick={handleApply}>
-                        Apply now
-                      </Button> */}
-                      <AlertDialog>
-                        <AlertDialogTrigger asChild>
-                          <Button className="text-base p-5">Apply now</Button>
-                        </AlertDialogTrigger>
-                        <AlertDialogContent>
-                          <AlertDialogHeader>
-                            <AlertDialogTitle>
-                              Are you absolutely sure?
-                            </AlertDialogTitle>
-                            {resume ? (
-                              <AlertDialogDescription>
-                                Your latest resume will be shared with the Admin
-                                for your applications.
-                              </AlertDialogDescription>
-                            ) : (
-                              <AlertDialogDescription>
-                                Upload your resume to apply for internships and
-                                jobs.
-                              </AlertDialogDescription>
-                            )}
-                          </AlertDialogHeader>
-                          <AlertDialogFooter>
-                            {resume ? (
-                              <>
-                                <AlertDialogCancel onClick={openSideBar}>
-                                  Update Resume
-                                </AlertDialogCancel>
-                                <AlertDialogAction onClick={handleApply}>
-                                  Continue
-                                </AlertDialogAction>
-                              </>
-                            ) : (
-                              <>
-                                <AlertDialogCancel onClick={openSideBar}>
-                                  Upload Resume
-                                </AlertDialogCancel>
-                              </>
-                            )}
-                          </AlertDialogFooter>
-                        </AlertDialogContent>
-                      </AlertDialog>
+                      {isSignedIn ? (
+                        <AlertDialog>
+                          <AlertDialogTrigger asChild>
+                            <Button className="text-base p-5">Apply now</Button>
+                          </AlertDialogTrigger>
+                          <AlertDialogContent>
+                            <AlertDialogHeader>
+                              <AlertDialogTitle>
+                                Are you absolutely sure?
+                              </AlertDialogTitle>
+                              {resume ? (
+                                <AlertDialogDescription>
+                                  Your latest resume will be shared with the
+                                  Admin for your applications.
+                                </AlertDialogDescription>
+                              ) : (
+                                <AlertDialogDescription>
+                                  Upload your resume to apply for internships
+                                  and jobs.
+                                </AlertDialogDescription>
+                              )}
+                            </AlertDialogHeader>
+                            <AlertDialogFooter>
+                              {resume ? (
+                                <>
+                                  <AlertDialogCancel onClick={openSideBar}>
+                                    Update Resume
+                                  </AlertDialogCancel>
+                                  <AlertDialogAction onClick={handleApply}>
+                                    Continue
+                                  </AlertDialogAction>
+                                </>
+                              ) : (
+                                <>
+                                  <AlertDialogCancel onClick={openSideBar}>
+                                    Upload Resume
+                                  </AlertDialogCancel>
+                                </>
+                              )}
+                            </AlertDialogFooter>
+                          </AlertDialogContent>
+                        </AlertDialog>
+                      ) : (
+                        <Button>Sign in</Button>
+                      )}
                     </>
                   )}
                 </>
