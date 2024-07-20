@@ -621,6 +621,10 @@ app.post("/reject-internship", async (req, res) => {
   }
 });
 
+app.get("/", (req, res) => {
+  res.send("Welcome to API");
+});
+
 app.post("/accept-job", async (req, res) => {
   const { clerkId, jobId } = req.body;
   console.log("clerkId", clerkId, "jobId", jobId);
