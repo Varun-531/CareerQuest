@@ -118,7 +118,7 @@ const Header2 = () => {
                 <>
                   <Button>
                     <SignedOut>
-                      <SignInButton type="modal">Sign-up/Sign-in</SignInButton>
+                      <SignInButton mode="modal">Sign-up/Sign-in</SignInButton>
                     </SignedOut>
                   </Button>
                   {/* <Button>Employer Sign-up</Button> */}
@@ -142,7 +142,7 @@ const Header2 = () => {
               <>
                 <Button>
                   <SignedOut>
-                    <SignInButton type="modal">Sign-in</SignInButton>
+                    <SignInButton mode="modal">Sign-in</SignInButton>
                   </SignedOut>
                 </Button>
               </>
@@ -168,7 +168,7 @@ const Header2 = () => {
                       <>
                         <Button>
                           <SignedOut>
-                            <SignInButton type="modal">
+                            <SignInButton mode="modal">
                               Sign-up/Sign-in
                             </SignInButton>
                           </SignedOut>
