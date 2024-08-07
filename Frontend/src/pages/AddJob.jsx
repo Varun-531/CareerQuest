@@ -120,7 +120,7 @@ const AddJob = () => {
         </div>
       )}
       <div className="px-5 md:px-10 md:py-0 py-5">
-        <div className="md:flex md:p-5 md:justify-between md:relative">
+        <div className="md:flex md:p-5 md:justify-between md:relative overflow-clip">
           <div className="md:w-[60vw] rounded">
             <h1 className="text-2xl md:text-4xl font-semibold">
               New Job Listing
